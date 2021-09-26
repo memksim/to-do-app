@@ -1,4 +1,4 @@
-package com.memksim.todolist.database
+package com.memksim.todolist.objects
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

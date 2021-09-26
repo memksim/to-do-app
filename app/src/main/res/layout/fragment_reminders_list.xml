@@ -39,15 +39,16 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_menu"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/date"
+                app:layout_constraintTop_toBottomOf="@id/month"
                 android:layout_marginStart="8dp"
+                android:contentDescription="@string/menu"
                 app:tint="@color/black" />
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sep 9"
+                android:text="month"
                 app:layout_constraintStart_toEndOf="@id/menu"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="16dp"
@@ -61,8 +62,8 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@id/date"
-                app:layout_constraintTop_toBottomOf="@id/date"
+                app:layout_constraintStart_toStartOf="@id/month"
+                app:layout_constraintTop_toBottomOf="@id/month"
                 android:layout_marginTop="4dp"/>
 
             <ImageView
@@ -70,10 +71,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_more_horiz"
-                app:layout_constraintTop_toBottomOf="@id/date"
+                app:layout_constraintTop_toBottomOf="@id/month"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp"
-                app:tint="@color/black" />
+                app:tint="@color/black"
+                android:contentDescription="@string/more"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/daysRecyclerView"
@@ -84,7 +86,7 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/date"
+                app:layout_constraintStart_toStartOf="@id/month"
                 app:layout_constraintTop_toBottomOf="@id/menu"
                 tools:listitem="@layout/item_day" />
 
@@ -96,22 +98,11 @@
             app:layout_constraintTop_toBottomOf="@id/curtain"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/graph"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="8dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_reminder"/>
-
-        <ImageView
-            android:id="@+id/graph"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/purple_200"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_margin="8dp"/>
-
 
 
 

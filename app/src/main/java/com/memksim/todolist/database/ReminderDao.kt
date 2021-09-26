@@ -1,6 +1,7 @@
 package com.memksim.todolist.database
 
 import androidx.room.*
+import com.memksim.todolist.objects.Reminder
 
 @Dao
 interface ReminderDao {

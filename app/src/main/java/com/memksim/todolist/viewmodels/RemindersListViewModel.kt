@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.memksim.todolist.contracts.RemindersListViewModelContract
-import com.memksim.todolist.database.Reminder
+import com.memksim.todolist.objects.Reminder
 import com.memksim.todolist.model.ReminderService
 
 class RemindersListViewModel(
@@ -18,8 +18,6 @@ class RemindersListViewModel(
         MutableLiveData<List<Reminder>>()
     }
     var remindersLiveData: LiveData<List<Reminder>> = remindersMutableLiveData
-
-
 
     private fun loadList(){
         remindersMutableLiveData.value = service.getReminders()
@@ -39,4 +37,6 @@ class RemindersListViewModel(
         service.deleteReminder(reminder)
         loadList()
     }
+
+
 }

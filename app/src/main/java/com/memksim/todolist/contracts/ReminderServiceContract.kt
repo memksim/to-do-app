@@ -1,8 +1,8 @@
 package com.memksim.todolist.contracts
 
-import com.memksim.todolist.database.Reminder
+import com.memksim.todolist.objects.Reminder
 
-interface ServiceContract {
+interface ReminderServiceContract {
 
     fun addReminder(reminder: Reminder)
 
