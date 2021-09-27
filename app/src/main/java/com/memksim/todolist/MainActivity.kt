@@ -14,12 +14,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = MainLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.container, RemindersListFragment())
-            .commit()
-
-
     }
 }

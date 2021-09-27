@@ -1,9 +1,21 @@
 <resources>
     <string name="app_name">To Do List</string>
-
-    <!--descriptions-->
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="note">Note</string>
+    <string name="addANote">Note…</string>
+    <string name="subtask">Subtask</string>
+    <string name="addSubtask">Add a subtask</string>
+    <string name="delete">Delete</string>
+    <string name="done">Done</string>
+    <string name="save">Save</string>
     <string name="menu">Menu</string>
     <string name="more">More functions</string>
+    <string name="addReminder">New reminder</string>
+    <string name="filter">Sort by</string>
+    <string name="deleteAll">Clear all</string>
+
 
     <!--Days of week-->
     <string name="Sun">Sunday</string>
