@@ -10,23 +10,253 @@
         android:id="@+id/solved"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:buttonTint="@color/second_color"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/month"
-        app:layout_constraintStart_toEndOf="@id/month"
-        app:layout_constraintTop_toTopOf="@+id/month" />
+        app:layout_constraintBottom_toBottomOf="@+id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title" />
 
     <EditText
-        android:id="@+id/month"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+
+        android:inputType="text"
         android:backgroundTint="@color/main_color_dark"
         android:text="title"
         android:textColor="@color/black"
         android:textSize="30sp"
+
+        app:layout_constraintStart_toEndOf="@id/solved"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/reminderInfoBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/info_block_background"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title">
+
+        <TextView
+            android:id="@+id/categoriesTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/category"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/categoriesSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/categoriesTitle" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/text_color"
+            app:layout_constraintEnd_toEndOf="@id/categoriesSpinner"
+            app:layout_constraintStart_toStartOf="@id/categoriesTitle"
+            app:layout_constraintTop_toBottomOf="@id/categoriesTitle" />
+
+        <TextView
+            android:id="@+id/dateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/date"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categoriesTitle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/openDatePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/main_color_dark"
+            android:text="09.09.2021"
+            android:textColor="@color/white"
+            app:cornerRadius="10dp"
+            app:icon="@drawable/ic_drop_down"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/dateTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/dateTitle" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/text_color"
+            app:layout_constraintEnd_toEndOf="@id/openDatePicker"
+            app:layout_constraintStart_toStartOf="@id/dateTitle"
+            app:layout_constraintTop_toBottomOf="@id/openDatePicker" />
+
+        <TextView
+            android:id="@+id/timeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/time"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dateTitle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/openTimePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/main_color_dark"
+            android:text="20:28"
+            android:textColor="@color/white"
+            app:cornerRadius="10dp"
+            app:icon="@drawable/ic_drop_down"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/timeTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/timeTitle" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/addNoteLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:startIconDrawable="@drawable/ic_note"
+        app:endIconMode="clear_text"
+        app:endIconContentDescription="@string/clear"
+        android:hint="@string/note"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:hintTextColor="@color/main_color_dark"
+        app:boxStrokeWidth="2dp"
+        app:boxStrokeColor="@color/main_color_dark"
+
+        app:startIconTint="@color/main_color_dark"
+        android:textColorHint="@color/main_color_dark"
+
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reminderInfoBlock"
+        android:layout_margin="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addNote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textAutoComplete"
+            android:textCursorDrawable="@drawable/cursor_drawable"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/subtasksRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/subtasks_list_bachground"
+
+        android:orientation="vertical"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_subtask"
+
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintTop_toBottomOf="@id/addNoteLayout"
+        android:layout_marginTop="16dp"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addASubtask"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addSubtask"
+        android:textAllCaps="false"
+        android:textColor="@color/text_color"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/ic_baseline_add_24"
+        app:iconTint="@color/text_color"
+        app:layout_constraintStart_toStartOf="@+id/subtasksRecyclerView"
+        android:layout_marginStart="4dp"
+        app:layout_constraintTop_toBottomOf="@id/subtasksRecyclerView" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/moreOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="36dp"
+        android:backgroundTint="@color/main_color_dark"
+        android:contentDescription="@string/more"
+        app:borderWidth="0dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addASubtask"
+        app:srcCompat="@drawable/ic_more_vert"
+        app:tint="@color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/deleteReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_delete"
+        app:tint="@color/white"
+        app:borderWidth="0dp"
+        android:contentDescription="@string/delete"
+        android:visibility="invisible"
+
+        app:layout_constraintStart_toStartOf="@id/moreOptions"
+        app:layout_constraintBottom_toTopOf="@id/moreOptions"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintEnd_toEndOf="@id/moreOptions"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_done"
+        app:tint="@color/white"
+        app:borderWidth="0dp"
+        android:contentDescription="@string/save"
+        android:visibility="invisible"
+
+        app:layout_constraintStart_toStartOf="@id/deleteReminder"
+        app:layout_constraintBottom_toTopOf="@id/deleteReminder"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintEnd_toEndOf="@id/deleteReminder"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
