@@ -1,9 +1,12 @@
 package com.memksim.todolist.model
 
 import android.content.Context
+import android.util.Log
+import com.memksim.todolist.R
 import com.memksim.todolist.contracts.ReminderServiceContract
 import com.memksim.todolist.objects.Reminder
 import com.memksim.todolist.database.ReminderDatabase
+import com.memksim.todolist.objects.Category
 
 class ReminderService(context: Context): ReminderServiceContract {
 
@@ -12,6 +15,7 @@ class ReminderService(context: Context): ReminderServiceContract {
 
     override fun addReminder(reminder: Reminder) {
         dao.addNewReminder(reminder)
+        Log.d("test", "ReminderService addReminder(reminder: Reminder)")
     }
 
     override fun updateReminder(reminder: Reminder) {
@@ -23,7 +27,12 @@ class ReminderService(context: Context): ReminderServiceContract {
     }
 
     override fun getReminders(): List<Reminder> {
-        return dao.getRemindersList()
+
+        //переворачиваем список чтобы вверху были новые элементы
+
+        Log.d("test", "ReminderService getReminders()")
+        return dao.getRemindersList().asReversed()
+
     }
 
     override fun deleteReminder(reminder: Reminder) {

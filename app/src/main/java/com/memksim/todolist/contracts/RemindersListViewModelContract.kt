@@ -4,6 +4,8 @@ import com.memksim.todolist.objects.Reminder
 
 interface RemindersListViewModelContract {
 
+    fun updateList()
+
     fun addReminder(reminder: Reminder)
 
     fun updateReminder(reminder: Reminder)

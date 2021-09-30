@@ -1,6 +1,7 @@
 package com.memksim.todolist.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,6 +22,11 @@ class RemindersListViewModel(
 
     private fun loadList(){
         remindersMutableLiveData.value = service.getReminders()
+        Log.d("test", "RemindersListViewModel loadList()")
+    }
+
+    override fun updateList() {
+        loadList()
     }
 
     override fun addReminder(reminder: Reminder) {

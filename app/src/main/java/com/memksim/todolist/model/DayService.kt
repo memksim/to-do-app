@@ -24,7 +24,6 @@ class DayService: DayServiceContract {
             )
             daysList.add(day)
         }
-        Log.d("test", "лист заполнен")
     }
 
     private fun setMonthStyle(month: Int): String{

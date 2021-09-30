@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "reminders")
-data class Reminder(
+open class Reminder(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int,
     @ColumnInfo(name = "_category") var category: String,
     @ColumnInfo(name = "_title") var title: String,
@@ -14,3 +14,4 @@ data class Reminder(
     @ColumnInfo(name = "_time") var time: String,
     @ColumnInfo(name = "_repeat") var repeat: String
 )
+
