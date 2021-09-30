@@ -36,33 +36,47 @@
                 android:id="@+id/curtain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/curtain_backgroung"
+                android:elevation="4dp"
+
+                android:background="@color/main_color_dark"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingBottom="16dp"
+                >
 
                 <ImageView
                     android:id="@+id/menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:elevation="6dp"
+
                     android:src="@drawable/ic_menu"
                     android:contentDescription="@string/menu"
+                    app:tint="@color/white"
+
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="8dp"
-                    app:tint="@color/black" />
 
-                <TextView
+                    />
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:elevation="6dp"
+
                     android:text="User's table"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
                     android:textStyle="bold"
+
                     app:layout_constraintBottom_toBottomOf="@+id/menu"
+                    app:layout_constraintEnd_toStartOf="@+id/filter"
+                    android:layout_marginStart="16dp"
                     app:layout_constraintStart_toEndOf="@id/menu"
                     app:layout_constraintTop_toTopOf="@+id/menu" />
 
@@ -70,54 +84,85 @@
                     android:id="@+id/month"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
+                    android:layout_marginTop="4dp"
                     android:text="September"
-                    android:textColor="@color/text_color"
-                    app:layout_constraintStart_toStartOf="@id/title"
-                    app:layout_constraintTop_toBottomOf="@id/title"
-                    android:layout_marginTop="4dp"/>
+                    android:textColor="@color/white"
+
+                    app:layout_constraintEnd_toEndOf="@+id/filter"
+                    app:layout_constraintStart_toStartOf="@id/menu"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+                <ImageView
+                    android:id="@+id/showDaysList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:src="@drawable/ic_arrow_down"
+                    app:tint = "@color/white"
+
+                    app:layout_constraintTop_toTopOf="@id/month"
+                    app:layout_constraintStart_toEndOf="@id/month"
+                    android:layout_marginStart="4dp"
+                    app:layout_constraintBottom_toBottomOf="@id/month"/>
 
                 <ImageView
                     android:id="@+id/filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:src="@drawable/ic_filter_list"
+                    app:tint="@color/white"
+                    android:contentDescription="@string/filter"
+
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="8dp"
-                    app:tint="@color/black"
-                    android:contentDescription="@string/filter"/>
+                    />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/daysRecyclerView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/title"
-                    app:layout_constraintTop_toBottomOf="@id/month"
-                    tools:listitem="@layout/item_day" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/daysRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                tools:listitem="@layout/item_day"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingStart="8dp"
+                app:layout_constraintTop_toBottomOf="@id/curtain"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingEnd="2dp"
+
+                android:visibility="gone"/>
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/remindersRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/curtain"
-                app:layout_constraintVertical_bias="0.0"
                 tools:itemCount="3"
-                tools:listitem="@layout/item_reminder" />
+                tools:listitem="@layout/item_reminder"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toBottomOf="@id/daysRecyclerView"
+                android:layout_marginTop="8dp"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -127,15 +172,18 @@
         android:id="@+id/moreOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:backgroundTint="@color/main_color_dark"
         app:tint="@color/white"
         app:srcCompat="@drawable/ic_more_horiz"
         app:borderWidth="0dp"
         android:contentDescription="@string/more"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="36dp"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_marginEnd="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="36dp"
+        />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/clearAll"

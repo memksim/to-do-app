@@ -16,35 +16,15 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
 
     private lateinit var viewModelAdd: AddReminderViewModel
 
-    private var clicked = false
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAddReminderBinding.bind(view)
 
         viewModelAdd = ViewModelProvider(this)[AddReminderViewModel::class.java]
 
-        binding.moreOptions.setOnClickListener {
-            moreOptionsButtonClicked(clicked)
-        }
+
 
     }
-
-    private fun moreOptionsButtonClicked(clicked: Boolean){
-        setVisibility(clicked)
-        this.clicked = !clicked
-    }
-
-    private fun setVisibility(clicked: Boolean) {
-        if (!clicked){
-            binding.saveReminder.visibility = View.VISIBLE
-            binding.deleteReminder.visibility = View.VISIBLE
-        }else{
-            binding.saveReminder.visibility = View.INVISIBLE
-            binding.deleteReminder.visibility = View.INVISIBLE
-        }
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

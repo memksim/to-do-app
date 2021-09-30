@@ -31,6 +31,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
     private lateinit var daysAdapter: DaysAdapter
 
     private var clicked = false
+    private var daysListHidden = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,7 +60,31 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
             openAddReminderFragment()
         }
 
+
+
+        binding.showDaysList.setOnClickListener {
+            setDaysListVisible(daysListHidden)
+        }
+        binding.month.setOnClickListener {
+            setDaysListVisible(daysListHidden)
+        }
+
+
+
         navController = findNavController()
+    }
+
+    private fun setDaysListVisible(isHidden: Boolean){
+        if(isHidden){
+            binding.daysRecyclerView.visibility = View.VISIBLE
+            binding.showDaysList.setImageResource(R.drawable.ic_arrow_up)
+            daysListHidden = false
+        }else{
+            binding.daysRecyclerView.visibility = View.GONE
+            binding.showDaysList.setImageResource(R.drawable.ic_arrow_down)
+            daysListHidden = true
+        }
+
     }
 
     private fun moreOptionsButtonClicked(clicked: Boolean){

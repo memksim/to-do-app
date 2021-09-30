@@ -6,6 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="8dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp" />
+
     <RadioButton
         android:id="@+id/solved"
         android:layout_width="wrap_content"
@@ -35,14 +47,17 @@
         android:id="@+id/reminderInfoBlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:elevation="4dp"
+
         android:background="@drawable/info_block_background"
+
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title">
+        android:layout_marginStart="8dp"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_marginTop="20dp">
 
         <TextView
             android:id="@+id/categoriesTitle"
@@ -88,15 +103,18 @@
             android:id="@+id/openDatePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:elevation="6dp"
+
             android:backgroundTint="@color/main_color_dark"
             android:text="09.09.2021"
             android:textColor="@color/white"
             app:cornerRadius="10dp"
             app:icon="@drawable/ic_drop_down"
             app:iconTint="@color/white"
+
             app:layout_constraintBottom_toBottomOf="@+id/dateTitle"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
             app:layout_constraintTop_toTopOf="@id/dateTitle" />
 
         <ImageView
@@ -125,15 +143,18 @@
             android:id="@+id/openTimePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:elevation="6dp"
+
             android:backgroundTint="@color/main_color_dark"
             android:text="20:28"
             android:textColor="@color/white"
             app:cornerRadius="10dp"
             app:icon="@drawable/ic_drop_down"
             app:iconTint="@color/white"
+
             app:layout_constraintBottom_toBottomOf="@+id/timeTitle"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
             app:layout_constraintTop_toTopOf="@id/timeTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -142,6 +163,7 @@
         android:id="@+id/addNoteLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:elevation="4dp"
 
         app:startIconDrawable="@drawable/ic_note"
         app:endIconMode="clear_text"
@@ -169,6 +191,7 @@
             android:id="@+id/addNote"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:inputType="textAutoComplete"
             android:textCursorDrawable="@drawable/cursor_drawable"/>
 
@@ -178,6 +201,8 @@
         android:id="@+id/subtasksRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:elevation="2dp"
+
         android:background="@drawable/subtasks_list_bachground"
 
         android:orientation="vertical"
@@ -194,15 +219,17 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addASubtask"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="@string/addSubtask"
         android:textAllCaps="false"
         android:textColor="@color/text_color"
         app:cornerRadius="10dp"
         app:icon="@drawable/ic_baseline_add_24"
         app:iconTint="@color/text_color"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+
         app:layout_constraintStart_toStartOf="@+id/subtasksRecyclerView"
         android:layout_marginStart="4dp"
         app:layout_constraintTop_toBottomOf="@id/subtasksRecyclerView" />
@@ -220,7 +247,6 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addASubtask"
         app:srcCompat="@drawable/ic_more_vert"
         app:tint="@color/white" />
 
@@ -258,5 +284,18 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintEnd_toEndOf="@id/deleteReminder"
         />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="8dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

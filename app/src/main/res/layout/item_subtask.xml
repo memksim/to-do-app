@@ -12,7 +12,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:buttonTint="@color/second_color"
+        android:buttonTint="@color/main_color"
         android:layout_marginStart="16dp"/>
 
     <TextView
