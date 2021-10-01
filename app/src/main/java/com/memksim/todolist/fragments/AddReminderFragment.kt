@@ -20,6 +20,8 @@ import com.memksim.todolist.R
 import com.memksim.todolist.databinding.FragmentAddReminderBinding
 import com.memksim.todolist.objects.Category
 import com.memksim.todolist.objects.Reminder
+import com.memksim.todolist.objects.Repeat
+import com.memksim.todolist.objects.Repeat.*
 import com.memksim.todolist.viewmodels.AddReminderViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,12 +44,28 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
     private var categories: List<Category> = emptyList()
     private var names: List<String> = emptyList()
 
+    private var whenRepeat: List<String> = emptyList()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAddReminderBinding.bind(view)
         navController = findNavController()
 
         viewModel = ViewModelProvider(this)[AddReminderViewModel::class.java]
+
+        whenRepeat = listOf(
+            requireContext().resources.getString(R.string.never),
+            requireContext().resources.getString(R.string.everyday),
+            requireContext().resources.getString(R.string.everyTwoDays),
+            requireContext().resources.getString(R.string.everyThreeDays),
+            requireContext().resources.getString(R.string.everyFourDays),
+            requireContext().resources.getString(R.string.everyFiveDays),
+            requireContext().resources.getString(R.string.everySixDays),
+            requireContext().resources.getString(R.string.everyWeek),
+            requireContext().resources.getString(R.string.everyMonth),
+            requireContext().resources.getString(R.string.everyHalfYear),
+            requireContext().resources.getString(R.string.everyYear)
+        )
 
         binding.save.setOnClickListener {
             saveReminder()
@@ -67,8 +85,11 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
         categories = viewModel.getCategoriesList()
         names = viewModel.getCategoriesNames()
 
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_category_dropdown, names)
-        binding.autoComplete.setAdapter(adapter)
+        val adapterCategory = ArrayAdapter(requireContext(), R.layout.item_category_dropdown, names)
+        binding.autoCompleteCategory.setAdapter(adapterCategory)
+
+        val adapterRepeat = ArrayAdapter(requireContext(), R.layout.item_category_dropdown, whenRepeat)
+        binding.autoCompleteRepeat.setAdapter(adapterRepeat)
 
     }
 
@@ -127,7 +148,6 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
         val date = Date()
         val calendar = GregorianCalendar()
 
-        val time = Date().time
         hour = calendar.get(Calendar.HOUR_OF_DAY)
         min = calendar.get(Calendar.MINUTE)
         val timeFormat = SimpleDateFormat("HH:mm")
@@ -135,16 +155,15 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
     }
 
     private fun saveReminder(){
-
         val reminder = Reminder(
             0,
-            binding.autoComplete.text.toString(),
+            binding.autoCompleteCategory.text.toString(),
             binding.title.text.toString(),
             binding.addNote.text.toString(),
             chosenDate,
             hour,
             min,
-            ""
+            getRepeat(binding.autoCompleteRepeat.text.toString())
         )
         viewModel.createReminder(reminder)
         Log.d("test", "AddReminderFragment saveReminder()")
@@ -153,6 +172,22 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getRepeat(chosenRepeat: String): Repeat{
+        return when(chosenRepeat){
+            whenRepeat[1] -> EVERYDAY
+            whenRepeat[2] -> EVERYTWODAYS
+            whenRepeat[3] -> EVERYTHREEDAYS
+            whenRepeat[4] -> EVERYFOURDAYS
+            whenRepeat[5] -> EVERYFIVEDAYS
+            whenRepeat[6] -> EVERYSIXDAYS
+            whenRepeat[7] -> EVERYWEEK
+            whenRepeat[9] -> EVERYMONTH
+            whenRepeat[10] -> EVERYHALFYEAR
+            whenRepeat[11] -> EVERYYEAR
+            else -> NEVER
+        }
     }
 
 }

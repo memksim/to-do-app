@@ -118,6 +118,7 @@ android:layout_height="match_parent">
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:elevation="6dp"
 
 
         app:boxCornerRadiusBottomEnd="10dp"
@@ -136,7 +137,7 @@ android:layout_height="match_parent">
         app:layout_constraintTop_toTopOf="@id/categoriesTitle">
 
         <AutoCompleteTextView
-            android:id="@+id/autoComplete"
+            android:id="@+id/autoCompleteCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
@@ -202,7 +203,6 @@ android:layout_height="match_parent">
         android:text="@string/time"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dateTitle" />
 
@@ -217,13 +217,66 @@ android:layout_height="match_parent">
         android:textColor="@color/white"
         app:cornerRadius="10dp"
         app:icon="@drawable/ic_drop_down"
-
         app:iconTint="@color/white"
+
         app:layout_constraintBottom_toBottomOf="@+id/timeTitle"
         app:layout_constraintTop_toTopOf="@id/timeTitle"
         app:layout_constraintEnd_toEndOf="@+id/openDatePicker"
-        app:layout_constraintStart_toStartOf="@+id/openDatePicker"
-         />
+        app:layout_constraintStart_toStartOf="@+id/openDatePicker" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/text_color"
+        app:layout_constraintEnd_toEndOf="@id/openTimePicker"
+        app:layout_constraintStart_toStartOf="@id/timeTitle"
+        app:layout_constraintTop_toBottomOf="@id/openTimePicker" />
+
+    <TextView
+        android:id="@+id/repeatTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/repeat"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timeTitle" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/whenRepeat"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+
+        app:boxStrokeColor="@color/buttons_color"
+        app:boxStrokeWidth="2dp"
+        app:endIconTint="@color/grey"
+
+        app:layout_constraintBottom_toBottomOf="@id/repeatTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintStart_toStartOf="@id/openDatePicker"
+        app:layout_constraintTop_toTopOf="@id/repeatTitle">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:inputType="none"
+            android:text="@string/never" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

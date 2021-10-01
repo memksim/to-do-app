@@ -13,6 +13,6 @@ open class Reminder(
     @ColumnInfo(name = "_date") var date: Long,
     @ColumnInfo(name = "_hour") var hour: Int,
     @ColumnInfo(name = "_minute") var min: Int,
-    @ColumnInfo(name = "_repeat") var repeat: String
+    @ColumnInfo(name = "_repeat") var repeat: Repeat
 )
 

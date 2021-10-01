@@ -10,6 +10,8 @@ import com.memksim.todolist.R
 import com.memksim.todolist.databinding.ItemReminderBinding
 import com.memksim.todolist.objects.FormattedReminder
 import com.memksim.todolist.objects.Reminder
+import com.memksim.todolist.objects.Repeat
+import com.memksim.todolist.objects.Repeat.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,6 +21,8 @@ class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHol
 
     var reminders: List<FormattedReminder> = emptyList()
 
+    private var whenRepeat: List<String> = emptyList()
+
     class RemindersViewHolder(val binding: ItemReminderBinding):
         RecyclerView.ViewHolder(binding.root)
 
@@ -26,6 +30,20 @@ class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHol
         context = parent.context
         val inflater = LayoutInflater.from(context)
         val binding = ItemReminderBinding.inflate(inflater, parent, false)
+
+        whenRepeat = listOf(
+            context.getString(R.string.never),
+            context.getString(R.string.everyday),
+            context.getString(R.string.everyTwoDays),
+            context.getString(R.string.everyThreeDays),
+            context.getString(R.string.everyFourDays),
+            context.getString(R.string.everyFiveDays),
+            context.getString(R.string.everySixDays),
+            context.getString(R.string.everyWeek),
+            context.getString(R.string.everyMonth),
+            context.getString(R.string.everyHalfYear),
+            context.getString(R.string.everyYear)
+        )
 
         return RemindersViewHolder(binding)
     }
@@ -41,11 +59,27 @@ class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHol
         }
         holder.binding.title.text = reminder.title
         holder.binding.dateTime.text = reminder.formattedDate + ", " +String.format(Locale.getDefault(), "%02d:%02d", reminder.hour, reminder.minute)
-        holder.binding.whenRepeat.text = reminders[position].repeat
+        holder.binding.whenRepeat.text = getRepeat(reminders[position].repeat)
 
     }
 
     override fun getItemCount(): Int {
         return reminders.size
+    }
+
+    private fun getRepeat(r: Repeat): String{
+        return when(r){
+            EVERYDAY -> whenRepeat[1]
+            EVERYTWODAYS -> whenRepeat[2]
+            EVERYTHREEDAYS -> whenRepeat[3]
+            EVERYFOURDAYS -> whenRepeat[4]
+            EVERYFIVEDAYS -> whenRepeat[5]
+            EVERYSIXDAYS -> whenRepeat[6]
+            EVERYWEEK -> whenRepeat[7]
+            EVERYMONTH -> whenRepeat[8]
+            EVERYHALFYEAR -> whenRepeat[9]
+            EVERYYEAR -> whenRepeat[10]
+            else -> whenRepeat[0]
+        }
     }
 }

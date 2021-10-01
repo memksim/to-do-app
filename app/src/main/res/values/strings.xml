@@ -4,6 +4,7 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="note">Note</string>
+    <string name="repeat">Repeat</string>
     <string name="addANote">Note…</string>
     <string name="subtask">Subtask</string>
     <string name="addSubtask">Add a subtask</string>
@@ -23,6 +24,19 @@
     <string name="workCategory">Work</string>
     <string name="homeCategory">Home</string>
     <string name="healthCategory">Health</string>
+
+    <!--Repeat-->
+    <string name="never">Never</string>
+    <string name="everyday">Everyday</string>
+    <string name="everyTwoDays">Every 2 days</string>
+    <string name="everyThreeDays">Every 3 days</string>
+    <string name="everyFourDays">Every 4 days</string>
+    <string name="everyFiveDays">Every 5 days</string>
+    <string name="everySixDays">Every 6 days</string>
+    <string name="everyWeek">Every week</string>
+    <string name="everyMonth">Every month</string>
+    <string name="everyHalfYear">Every half year</string>
+    <string name="everyYear">Every year</string>
 
 
     <!--Days of week-->

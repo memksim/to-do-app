@@ -8,5 +8,5 @@ data class FormattedReminder(
     val formattedDate: String,
     val hour: Int,
     val minute: Int,
-    val repeat: String
+    val repeat: Repeat
 )
