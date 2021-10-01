@@ -19,6 +19,11 @@
     <string name="selectDate">Select date</string>
     <string name="selectTime">Select time</string>
 
+    <string name="defaultCategory">Default</string>
+    <string name="workCategory">Work</string>
+    <string name="homeCategory">Home</string>
+    <string name="healthCategory">Health</string>
+
 
     <!--Days of week-->
     <string name="Sun">Sunday</string>

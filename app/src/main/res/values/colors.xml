@@ -19,12 +19,18 @@
 
     <color name="buttons_color">#d9bfb5</color>
 
-
-    <color name="bottoms_color_light">#ED87D9</color>
-    <color name="bottoms_color_dark">#D37DD3</color>
-
     <color name="text_color">#676166</color>
     <color name="grey_light">#F0F0F0</color>
-    <color name="saved">#5C95C4E5</color>
 
+    <!--categories-->
+    <color name="light_blue">#93b0d0</color>
+    <color name="pinch">#fd7c84</color>
+    <color name="salad_green">#9db802</color>
+    <color name="blue">#02a0da</color>
+    <color name="dark_green">#427322</color>
+    <color name="grey">#5e6668</color>
+    <color name="yellow">#f0db72</color>
+    <color name="orange">#e09d30</color>
+    <color name="purple">#bb7db2</color>
+    <color name="brown">#8d7361</color>
 </resources>

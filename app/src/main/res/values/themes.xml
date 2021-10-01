@@ -14,6 +14,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
+        <item name="materialTimePickerTheme">@style/ThemeOverlay.App.TimePicker</item>
     </style>
 
     <style name="ThemeOverlay.App.DatePicker"
@@ -21,9 +22,22 @@
 
         <item name="colorPrimary">@color/second_color</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorSecondary">@color/second_color_dark</item>
-        <item name="cornerSize">100dp</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
 
+    </style>
+
+    <style name="ThemeOverlay.App.TimePicker"
+        parent="@style/ThemeOverlay.MaterialComponents.TimePicker">
+
+        <item name="colorPrimary">@color/second_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent"
+        parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">16dp</item>
     </style>
 
 </resources>

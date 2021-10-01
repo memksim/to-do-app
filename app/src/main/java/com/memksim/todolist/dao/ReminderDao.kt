@@ -1,4 +1,4 @@
-package com.memksim.todolist.database
+package com.memksim.todolist.dao
 
 import androidx.room.*
 import com.memksim.todolist.objects.Reminder
@@ -7,7 +7,7 @@ import com.memksim.todolist.objects.Reminder
 interface ReminderDao {
 
     @Insert
-    fun addNewReminder(reminder: Reminder)
+    fun saveNewReminder(reminder: Reminder)
 
     @Update
     fun updateExistingReminder(reminder: Reminder)

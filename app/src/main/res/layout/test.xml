@@ -203,7 +203,7 @@
         android:layout_height="wrap_content"
         android:elevation="2dp"
 
-        android:background="@drawable/subtasks_list_bachground"
+        android:background="@drawable/subtasks_list_background"
 
         android:orientation="vertical"
         tools:itemCount="4"

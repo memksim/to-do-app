@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,10 +18,12 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.memksim.todolist.R
 import com.memksim.todolist.databinding.FragmentAddReminderBinding
+import com.memksim.todolist.objects.Category
 import com.memksim.todolist.objects.Reminder
 import com.memksim.todolist.viewmodels.AddReminderViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
 
@@ -35,6 +38,9 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
     private var chosenDate = today
     private var hour = 12
     private var min = 0
+
+    private var categories: List<Category> = emptyList()
+    private var names: List<String> = emptyList()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,6 +63,12 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
         binding.openTimePicker.setOnClickListener {
             showTimePicker()
         }
+
+        categories = viewModel.getCategoriesList()
+        names = viewModel.getCategoriesNames()
+
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_category_dropdown, names)
+        binding.autoComplete.setAdapter(adapter)
 
     }
 
@@ -93,6 +105,8 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
                 .setTitleText(R.string.selectTime)
                 .build()
 
+
+
         picker.addOnPositiveButtonClickListener {
             hour = picker.hour
             min = picker.minute
@@ -121,9 +135,10 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
     }
 
     private fun saveReminder(){
+
         val reminder = Reminder(
             0,
-            "testCategory",
+            binding.autoComplete.text.toString(),
             binding.title.text.toString(),
             binding.addNote.text.toString(),
             chosenDate,

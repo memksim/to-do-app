@@ -1,11 +1,14 @@
 package com.memksim.todolist.adapters
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.memksim.todolist.R
 import com.memksim.todolist.databinding.ItemReminderBinding
+import com.memksim.todolist.objects.FormattedReminder
 import com.memksim.todolist.objects.Reminder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -14,7 +17,7 @@ class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHol
 
     private lateinit var context: Context
 
-    var reminders: List<Reminder> = emptyList()
+    var reminders: List<FormattedReminder> = emptyList()
 
     class RemindersViewHolder(val binding: ItemReminderBinding):
         RecyclerView.ViewHolder(binding.root)
@@ -28,21 +31,18 @@ class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHol
     }
 
     override fun onBindViewHolder(holder: RemindersViewHolder, position: Int) {
-        val format = SimpleDateFormat("dd.MM.yyyy")
+        val reminder = reminders[position]
 
-        holder.binding.categoryColor.setImageResource(getColor(reminders[position].category))
-        holder.binding.title.text = reminders[position].title
-        holder.binding.dateTime.text = format.format(reminders[position].date) + ", " +
-                String.format(Locale.getDefault(), "%02d:%02d", reminders[position].hour, reminders[position].min)
-        holder.binding.whenRepeat.text = reminders[position].repeat
-    }
 
-    private fun getColor(categoryTitle: String): Int{
-        return when(categoryTitle){
-            else -> {
-                R.color.second_color
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            holder.binding.categoryColor.backgroundTintList = context.resources.getColorStateList(reminder.category.colorResId, null)
+        }else{
+            holder.binding.categoryColor.backgroundTintList = context.resources.getColorStateList(reminder.category.colorResId)
         }
+        holder.binding.title.text = reminder.title
+        holder.binding.dateTime.text = reminder.formattedDate + ", " +String.format(Locale.getDefault(), "%02d:%02d", reminder.hour, reminder.minute)
+        holder.binding.whenRepeat.text = reminders[position].repeat
+
     }
 
     override fun getItemCount(): Int {

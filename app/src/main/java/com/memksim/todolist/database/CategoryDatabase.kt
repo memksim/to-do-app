@@ -4,26 +4,27 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.memksim.todolist.dao.ReminderDao
-import com.memksim.todolist.objects.Reminder
+import com.memksim.todolist.R
+import com.memksim.todolist.dao.CategoryDao
+import com.memksim.todolist.objects.Category
 
-@Database(entities = [Reminder::class], version = 1, exportSchema = false)
-abstract class ReminderDatabase: RoomDatabase() {
+@Database(entities = [Category::class], version = 1, exportSchema = false)
+abstract class CategoryDatabase: RoomDatabase() {
 
-    abstract fun remindersDao(): ReminderDao
+    abstract fun categoryDao(): CategoryDao
 
     companion object{
-        private var INSTANCE: ReminderDatabase? = null
+        private var INSTANCE: CategoryDatabase? = null
 
-        fun getDataBase(context: Context): ReminderDatabase{
+        fun getDataBase(context: Context): CategoryDatabase{
             val template = INSTANCE
             if(template != null) return template
 
             synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    ReminderDatabase::class.java,
-                    "remindersDatabase"
+                    CategoryDatabase::class.java,
+                    "categoriesDatabase"
                 ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 return instance

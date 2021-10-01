@@ -7,18 +7,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.memksim.todolist.contracts.RemindersListViewModelContract
 import com.memksim.todolist.objects.Reminder
-import com.memksim.todolist.model.ReminderService
+import com.memksim.todolist.model.Repository
+import com.memksim.todolist.objects.FormattedReminder
 
 class RemindersListViewModel(
     application: Application
 ): AndroidViewModel(application), RemindersListViewModelContract {
 
-    private val service = ReminderService(application)
+    private val service = Repository(application)
 
-    private val remindersMutableLiveData: MutableLiveData<List<Reminder>> by lazy {
-        MutableLiveData<List<Reminder>>()
+    private val remindersMutableLiveData: MutableLiveData<List<FormattedReminder>> by lazy {
+        MutableLiveData<List<FormattedReminder>>()
     }
-    var remindersLiveData: LiveData<List<Reminder>> = remindersMutableLiveData
+    var remindersLiveData: LiveData<List<FormattedReminder>> = remindersMutableLiveData
 
     private fun loadList(){
         remindersMutableLiveData.value = service.getReminders()

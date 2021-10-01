@@ -8,12 +8,13 @@
     android:padding="16dp"
     android:layout_margin="8dp">
 
-    <ImageView
+    <Button
         android:id="@+id/categoryColor"
         android:layout_width="10dp"
         android:layout_height="0dp"
-        android:background="@drawable/category_color_background"
-        android:backgroundTint="@color/purple_200"
+
+        android:clickable="false"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/title"
         app:layout_constraintBottom_toBottomOf="@id/bottomBarrier"/>
