@@ -1,5 +1,5 @@
 
-package com.memksim.todolist.screens
+package com.memksim.todolist.fragments
 
 import android.os.Bundle
 import android.util.Log

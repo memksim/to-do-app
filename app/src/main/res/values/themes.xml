@@ -2,16 +2,28 @@
     <!-- Base application theme. -->
     <style name="Theme.ToDoList" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/main_color_dark</item>
-        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorPrimaryVariant">@color/main_color_dark</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorAccent">@color/buttons_color</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/bottoms_color_light</item>
-        <item name="colorSecondaryVariant">@color/bottoms_color_dark</item>
+        <item name="colorSecondary">@color/second_color</item>
+        <item name="colorSecondaryVariant">@color/second_color_dark</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="materialCalendarTheme">@style/ThemeOverlay.App.DatePicker</item>
+    </style>
+
+    <style name="ThemeOverlay.App.DatePicker"
+        parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+
+        <item name="colorPrimary">@color/second_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/second_color_dark</item>
+        <item name="cornerSize">100dp</item>
+
     </style>
 
 </resources>

@@ -148,7 +148,7 @@ android:layout_height="match_parent">
         android:layout_height="wrap_content"
         android:elevation="6dp"
 
-        android:backgroundTint="@color/main_color"
+        android:backgroundTint="@color/buttons_color"
         android:text="09.09.2021"
         android:textColor="@color/white"
         app:cornerRadius="10dp"
@@ -184,21 +184,22 @@ android:layout_height="match_parent">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/openTimePicker"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:elevation="6dp"
 
-        android:backgroundTint="@color/main_color"
+        android:backgroundTint="@color/buttons_color"
+        android:elevation="6dp"
         android:text="20:28"
         android:textColor="@color/white"
         app:cornerRadius="10dp"
         app:icon="@drawable/ic_drop_down"
-        app:iconTint="@color/white"
 
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/timeTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toTopOf="@id/timeTitle" />
+        app:layout_constraintTop_toTopOf="@id/timeTitle"
+        app:layout_constraintEnd_toEndOf="@+id/openDatePicker"
+        app:layout_constraintStart_toStartOf="@+id/openDatePicker"
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,6 +16,8 @@
     <string name="filter">Sort by</string>
     <string name="deleteAll">Clear all</string>
     <string name="clear">Clear</string>
+    <string name="selectDate">Select date</string>
+    <string name="selectTime">Select time</string>
 
 
     <!--Days of week-->

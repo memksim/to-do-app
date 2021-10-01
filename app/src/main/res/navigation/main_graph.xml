@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/remindersListFragment"
-        android:name="com.memksim.todolist.screens.RemindersListFragment"
+        android:name="com.memksim.todolist.fragments.RemindersListFragment"
         android:label="RemindersListFragment">
         <action
             android:id="@+id/action_remindersListFragment_to_addReminderFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/addReminderFragment"
-        android:name="com.memksim.todolist.screens.AddReminderFragment"
+        android:name="com.memksim.todolist.fragments.AddReminderFragment"
         android:label="AddReminderFragment"
         tools:layout="@layout/fragment_add_reminder">
         <action

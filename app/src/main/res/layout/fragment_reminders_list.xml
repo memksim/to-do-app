@@ -173,7 +173,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:backgroundTint="@color/main_color_dark"
+        android:backgroundTint="@color/buttons_color"
         app:tint="@color/white"
         app:srcCompat="@drawable/ic_more_horiz"
         app:borderWidth="0dp"

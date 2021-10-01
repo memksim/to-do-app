@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.memksim.todolist.R
 import com.memksim.todolist.databinding.ItemReminderBinding
 import com.memksim.todolist.objects.Reminder
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHolder>() {
 
@@ -26,9 +28,12 @@ class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHol
     }
 
     override fun onBindViewHolder(holder: RemindersViewHolder, position: Int) {
+        val format = SimpleDateFormat("dd.MM.yyyy")
+
         holder.binding.categoryColor.setImageResource(getColor(reminders[position].category))
         holder.binding.title.text = reminders[position].title
-        holder.binding.dateTime.text = "${reminders[position].date}, ${reminders[position].time}"
+        holder.binding.dateTime.text = format.format(reminders[position].date) + ", " +
+                String.format(Locale.getDefault(), "%02d:%02d", reminders[position].hour, reminders[position].min)
         holder.binding.whenRepeat.text = reminders[position].repeat
     }
 

@@ -2,9 +2,7 @@ package com.memksim.todolist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import com.memksim.todolist.databinding.MainLayoutBinding
-import com.memksim.todolist.screens.RemindersListFragment
 
 class MainActivity : AppCompatActivity() {
 
