@@ -5,10 +5,8 @@ import android.util.Log
 import com.memksim.todolist.R
 import com.memksim.todolist.contracts.RepositoryContract
 import com.memksim.todolist.database.CategoryDatabase
-import com.memksim.todolist.objects.Reminder
 import com.memksim.todolist.database.ReminderDatabase
-import com.memksim.todolist.objects.Category
-import com.memksim.todolist.objects.FormattedReminder
+import com.memksim.todolist.objects.*
 import java.text.SimpleDateFormat
 
 class Repository(private val context: Context): RepositoryContract {
@@ -28,96 +26,64 @@ class Repository(private val context: Context): RepositoryContract {
         reminderDao.updateExistingReminder(reminder)
     }
 
-    override fun getReminderById(id: Int): FormattedReminder {
-        val reminder = reminderDao.getReminderById(id)
-
-        val format = SimpleDateFormat("dd.MM.yyyy")
-        val formattedDate = format.format(reminder.date)
-
-        val categories = categoryDao.getCategoriesList()
-        //todo сделать проверку не пустой ли массив категорий
-        var category = categories[0]
-
-        for (c in categories) {
-            if (reminder.category == c.name) {
-                category = c
-            }
-        }
-
-        return FormattedReminder(
-            title = reminder.title,
-            note = reminder.note,
-            category = category,
-            dateInMillis = reminder.date,
-            formattedDate = formattedDate,
-            hour = reminder.hour,
-            minute = reminder.min,
-            repeat = reminder.repeat
-        )
+    override fun getReminderById(id: Int): Reminder {
+        return reminderDao.getReminderById(id)
     }
 
     override fun getCategories(): List<Category> {
-        //val categories = ArrayList<Category>()
-        return if (categoryDao.getCategoriesList().isEmpty()){
-            /*categories.add(Category(context.resources.getString(R.string.defaultCategory), R.color.light_blue))
-            categories.add(Category(context.resources.getString(R.string.workCategory), R.color.blue))
-            categories.add(Category(context.resources.getString(R.string.healthCategory), R.color.salad_green))
-            categories.add(Category(context.resources.getString(R.string.homeCategory), R.color.brown))*/
-
+         if (categoryDao.getCategoriesList().isEmpty()){
+            //если список категорий пуст, то заполняем базовыми категориями
             categoryDao.saveNewCategory(Category(context.resources.getString(R.string.defaultCategory), R.color.light_blue))
             categoryDao.saveNewCategory(Category(context.resources.getString(R.string.workCategory), R.color.blue))
             categoryDao.saveNewCategory(Category(context.resources.getString(R.string.healthCategory), R.color.salad_green))
             categoryDao.saveNewCategory(Category(context.resources.getString(R.string.homeCategory), R.color.brown))
-
-            categoryDao.getCategoriesList()
-        }else{
-            categoryDao.getCategoriesList()
         }
-
+        return categoryDao.getCategoriesList()
     }
 
     override fun getCategory(categoryName: String): Category {
         return categoryDao.getCategory(categoryName)
     }
 
-    override fun getReminders(): List<FormattedReminder> {
-        val formattedReminders = ArrayList<FormattedReminder>()
+    override fun getReminders(): List<Reminder> {
         //переворачиваем список чтобы вверху были новые элементы
-        val reminders = reminderDao.getRemindersList().asReversed()
-        val format = SimpleDateFormat("dd.MM.yyyy")
-
-        val categories = getCategories()
-        //todo сделать проверку не пустой ли массив категорий
-        var category = categories[0]
-
-        for(reminder in reminders){
-            val formattedDate = format.format(reminder.date)
-
-            for (c in categories) {
-                if (reminder.category == c.name) {
-                    category = c
-                }
-            }
-
-            val formattedReminder = FormattedReminder(
-                title = reminder.title,
-                note = reminder.note,
-                category = category,
-                dateInMillis = reminder.date,
-                formattedDate = formattedDate,
-                hour = reminder.hour,
-                minute = reminder.min,
-                repeat = reminder.repeat
-            )
-
-            formattedReminders.add(formattedReminder)
-        }
-
-        return formattedReminders
+        return reminderDao.getRemindersList().asReversed()
     }
 
     override fun deleteReminder(reminder: Reminder) {
         reminderDao.deleteReminder(reminder)
     }
+
+    /*private fun getRepeat(chosenRepeat: String): Repeat {
+        return when(chosenRepeat){
+            context.resources.getString(R.string.everyday) -> Repeat.EVERYDAY
+            context.resources.getString(R.string.everyTwoDays) -> Repeat.EVERYTWODAYS
+            context.resources.getString(R.string.everyThreeDays) -> Repeat.EVERYTHREEDAYS
+            context.resources.getString(R.string.everyFourDays) -> Repeat.EVERYFOURDAYS
+            context.resources.getString(R.string.everyFiveDays) -> Repeat.EVERYFIVEDAYS
+            context.resources.getString(R.string.everySixDays) -> Repeat.EVERYSIXDAYS
+            context.resources.getString(R.string.everyWeek) -> Repeat.EVERYWEEK
+            context.resources.getString(R.string.everyMonth) -> Repeat.EVERYMONTH
+            context.resources.getString(R.string.everyHalfYear) -> Repeat.EVERYHALFYEAR
+            context.resources.getString(R.string.everyYear) -> Repeat.EVERYYEAR
+            else -> Repeat.NEVER
+        }
+    }
+
+    private fun getRepeatTitle(repeat: Repeat): String{
+        return when(repeat){
+            Repeat.EVERYDAY -> context.resources.getString(R.string.everyday)
+            Repeat.EVERYTWODAYS -> context.resources.getString(R.string.everyTwoDays)
+            Repeat.EVERYTHREEDAYS -> context.resources.getString(R.string.everyThreeDays)
+            Repeat.EVERYFOURDAYS -> context.resources.getString(R.string.everyFourDays)
+            Repeat.EVERYFIVEDAYS -> context.resources.getString(R.string.everyFiveDays)
+            Repeat.EVERYSIXDAYS -> context.resources.getString(R.string.everySixDays)
+            Repeat.EVERYWEEK -> context.resources.getString(R.string.everyWeek)
+            Repeat.EVERYMONTH -> context.resources.getString(R.string.everyMonth)
+            Repeat.EVERYHALFYEAR -> context.resources.getString(R.string.everyHalfYear)
+            Repeat.EVERYYEAR -> context.resources.getString(R.string.everyYear)
+            else -> context.resources.getString(R.string.never)
+        }
+    }*/
 
 }

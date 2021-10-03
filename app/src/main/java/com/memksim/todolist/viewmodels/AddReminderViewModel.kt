@@ -14,8 +14,6 @@ class AddReminderViewModel(
 
     private val service = Repository(application)
 
-
-
     override fun createReminder(reminder: Reminder) {
         service.addReminder(reminder)
         Log.d("test", "AddReminderViewModel createReminder(reminder: Reminder)")

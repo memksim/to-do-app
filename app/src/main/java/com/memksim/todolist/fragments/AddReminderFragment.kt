@@ -1,12 +1,10 @@
 package com.memksim.todolist.fragments
 
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -18,14 +16,11 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.memksim.todolist.R
 import com.memksim.todolist.databinding.FragmentAddReminderBinding
-import com.memksim.todolist.objects.Category
-import com.memksim.todolist.objects.Reminder
-import com.memksim.todolist.objects.Repeat
+import com.memksim.todolist.objects.*
 import com.memksim.todolist.objects.Repeat.*
 import com.memksim.todolist.viewmodels.AddReminderViewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
 
@@ -36,8 +31,7 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
 
     private lateinit var viewModel: AddReminderViewModel
 
-    private val today: Long = MaterialDatePicker.todayInUtcMilliseconds()
-    private var chosenDate = today
+    private var chosenDateInMillis = MaterialDatePicker.todayInUtcMilliseconds()
     private var hour = 12
     private var min = 0
 
@@ -103,12 +97,12 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
             MaterialDatePicker.Builder.datePicker()
                 .setTitleText(R.string.selectDate)
                 .setCalendarConstraints(constraintsBuilder.build())
-                .setSelection(today)
+                .setSelection(chosenDateInMillis)
                 .build()
 
         datePicker.addOnPositiveButtonClickListener {
-            chosenDate = it
-            binding.openDatePicker.text = SimpleDateFormat("dd.MM.yyyy").format(chosenDate)
+            chosenDateInMillis = it
+            binding.openDatePicker.text = SimpleDateFormat("dd.MM.yyyy").format(chosenDateInMillis)
         }
 
         datePicker.show(requireActivity().supportFragmentManager, "datePicker")
@@ -139,9 +133,12 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
     }
 
     private fun getCurrentDate(){
-        val dateFormat = SimpleDateFormat("dd.MM.yyyy")
-        binding.openDatePicker.text = dateFormat.format(Date())
+        binding.openDatePicker.text = getFormattedDate(chosenDateInMillis)
+    }
 
+    private fun getFormattedDate(dateInMillis: Long): String{
+        val dateFormat = SimpleDateFormat("dd.MM.yyyy")
+        return dateFormat.format(dateInMillis)
     }
 
     private fun getCurrentTime(){
@@ -155,18 +152,23 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
     }
 
     private fun saveReminder(){
-        val reminder = Reminder(
-            0,
-            binding.autoCompleteCategory.text.toString(),
-            binding.title.text.toString(),
-            binding.addNote.text.toString(),
-            chosenDate,
-            hour,
-            min,
-            getRepeat(binding.autoCompleteRepeat.text.toString())
-        )
+        val reminder = buildReminder()
         viewModel.createReminder(reminder)
         Log.d("test", "AddReminderFragment saveReminder()")
+    }
+
+    private fun buildReminder(): Reminder {
+
+        return Reminder(
+            0,
+            title = binding.title.text.toString(),
+            note = binding.addNote.text.toString(),
+            categoryTitle = binding.autoCompleteCategory.text.toString(),
+            dateInMillis = chosenDateInMillis,
+            hour = hour,
+            minute = min,
+            repeatResId = getRepeatResId(binding.autoCompleteRepeat.text.toString())
+        )
     }
 
     override fun onDestroyView() {
@@ -174,19 +176,19 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
         _binding = null
     }
 
-    private fun getRepeat(chosenRepeat: String): Repeat{
-        return when(chosenRepeat){
-            whenRepeat[1] -> EVERYDAY
-            whenRepeat[2] -> EVERYTWODAYS
-            whenRepeat[3] -> EVERYTHREEDAYS
-            whenRepeat[4] -> EVERYFOURDAYS
-            whenRepeat[5] -> EVERYFIVEDAYS
-            whenRepeat[6] -> EVERYSIXDAYS
-            whenRepeat[7] -> EVERYWEEK
-            whenRepeat[9] -> EVERYMONTH
-            whenRepeat[10] -> EVERYHALFYEAR
-            whenRepeat[11] -> EVERYYEAR
-            else -> NEVER
+    private fun getRepeatResId(repeat: String): Int{
+        return when(repeat){
+            resources.getString(R.string.everyday) -> R.string.everyday
+            resources.getString(R.string.everyTwoDays) -> R.string.everyTwoDays
+            resources.getString(R.string.everyThreeDays) -> R.string.everyThreeDays
+            resources.getString(R.string.everyFourDays) -> R.string.everyFourDays
+            resources.getString(R.string.everyFiveDays) -> R.string.everyFiveDays
+            resources.getString(R.string.everySixDays) -> R.string.everySixDays
+            resources.getString(R.string.everyWeek) -> R.string.everyWeek
+            resources.getString(R.string.everyMonth) -> R.string.everyMonth
+            resources.getString(R.string.everyHalfYear) -> R.string.everyHalfYear
+            resources.getString(R.string.everyYear) -> R.string.everyYear
+            else -> R.string.never
         }
     }
 

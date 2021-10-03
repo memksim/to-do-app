@@ -53,6 +53,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
         binding.daysRecyclerView.adapter = daysAdapter
 
         remindersAdapter = RemindersAdapter()
+        remindersAdapter.categories = remindersListViewModel.getCategories()
         remindersListViewModel.remindersLiveData.observe(viewLifecycleOwner, Observer {
             Log.d("test", "remindersListViewModel.remindersLiveData")
             remindersAdapter.notifyDataSetChanged()
@@ -68,8 +69,6 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
         binding.newReminder.setOnClickListener {
             openAddReminderFragment()
         }
-
-
 
         binding.showDaysList.setOnClickListener {
             setDaysListVisible(daysListHidden)
