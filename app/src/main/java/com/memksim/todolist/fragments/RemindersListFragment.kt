@@ -4,12 +4,15 @@ package com.memksim.todolist.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.memksim.todolist.R
 import com.memksim.todolist.adapters.DaysAdapter
 import com.memksim.todolist.adapters.RemindersAdapter
@@ -17,6 +20,8 @@ import com.memksim.todolist.contracts.RemindersListFragmentNavigation
 import com.memksim.todolist.databinding.FragmentRemindersListBinding
 import com.memksim.todolist.viewmodels.DaysListViewModel
 import com.memksim.todolist.viewmodels.RemindersListViewModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 
 class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), RemindersListFragmentNavigation {
 
@@ -52,7 +57,26 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
         binding.daysRecyclerView.layoutManager = horizontalLayoutManager
         binding.daysRecyclerView.adapter = daysAdapter
 
+        val callback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                //remindersListViewModel.deleteReminder(viewHolder.adapterPosition)
+                
+                viewHolder.itemView.visibility = View.GONE
+            }
+
+
+
+        }
         remindersAdapter = RemindersAdapter()
+        ItemTouchHelper(callback).attachToRecyclerView(binding.remindersRecyclerView)
         remindersAdapter.categories = remindersListViewModel.getCategories()
         remindersListViewModel.remindersLiveData.observe(viewLifecycleOwner, Observer {
             Log.d("test", "remindersListViewModel.remindersLiveData")
@@ -61,6 +85,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
         })
         binding.remindersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.remindersRecyclerView.adapter = remindersAdapter
+
 
         binding.moreOptions.setOnClickListener {
             moreOptionsButtonClicked(clicked)

@@ -13,6 +13,6 @@ interface RemindersListViewModelContract {
 
     fun updateReminder(reminder: Reminder)
 
-    fun deleteReminder(reminder: Reminder)
+    fun deleteReminder(id: Int)
 
 }

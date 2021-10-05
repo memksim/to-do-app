@@ -44,8 +44,9 @@ class RemindersListViewModel(
         loadList()
     }
 
-    override fun deleteReminder(reminder: Reminder) {
-        repository.deleteReminder(reminder)
+    override fun deleteReminder(position: Int) {
+        val reminders = remindersLiveData.value
+        repository.deleteReminder(reminders!![position])
         loadList()
     }
 
