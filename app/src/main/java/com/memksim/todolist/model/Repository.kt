@@ -8,6 +8,7 @@ import com.memksim.todolist.database.CategoryDatabase
 import com.memksim.todolist.database.ReminderDatabase
 import com.memksim.todolist.objects.*
 import java.text.SimpleDateFormat
+import javax.inject.Inject
 
 class Repository(private val context: Context): RepositoryContract {
 
@@ -54,36 +55,5 @@ class Repository(private val context: Context): RepositoryContract {
         reminderDao.deleteReminder(reminder)
     }
 
-    /*private fun getRepeat(chosenRepeat: String): Repeat {
-        return when(chosenRepeat){
-            context.resources.getString(R.string.everyday) -> Repeat.EVERYDAY
-            context.resources.getString(R.string.everyTwoDays) -> Repeat.EVERYTWODAYS
-            context.resources.getString(R.string.everyThreeDays) -> Repeat.EVERYTHREEDAYS
-            context.resources.getString(R.string.everyFourDays) -> Repeat.EVERYFOURDAYS
-            context.resources.getString(R.string.everyFiveDays) -> Repeat.EVERYFIVEDAYS
-            context.resources.getString(R.string.everySixDays) -> Repeat.EVERYSIXDAYS
-            context.resources.getString(R.string.everyWeek) -> Repeat.EVERYWEEK
-            context.resources.getString(R.string.everyMonth) -> Repeat.EVERYMONTH
-            context.resources.getString(R.string.everyHalfYear) -> Repeat.EVERYHALFYEAR
-            context.resources.getString(R.string.everyYear) -> Repeat.EVERYYEAR
-            else -> Repeat.NEVER
-        }
-    }
-
-    private fun getRepeatTitle(repeat: Repeat): String{
-        return when(repeat){
-            Repeat.EVERYDAY -> context.resources.getString(R.string.everyday)
-            Repeat.EVERYTWODAYS -> context.resources.getString(R.string.everyTwoDays)
-            Repeat.EVERYTHREEDAYS -> context.resources.getString(R.string.everyThreeDays)
-            Repeat.EVERYFOURDAYS -> context.resources.getString(R.string.everyFourDays)
-            Repeat.EVERYFIVEDAYS -> context.resources.getString(R.string.everyFiveDays)
-            Repeat.EVERYSIXDAYS -> context.resources.getString(R.string.everySixDays)
-            Repeat.EVERYWEEK -> context.resources.getString(R.string.everyWeek)
-            Repeat.EVERYMONTH -> context.resources.getString(R.string.everyMonth)
-            Repeat.EVERYHALFYEAR -> context.resources.getString(R.string.everyHalfYear)
-            Repeat.EVERYYEAR -> context.resources.getString(R.string.everyYear)
-            else -> context.resources.getString(R.string.never)
-        }
-    }*/
 
 }

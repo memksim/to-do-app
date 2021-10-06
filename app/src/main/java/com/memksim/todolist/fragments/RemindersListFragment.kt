@@ -1,6 +1,7 @@
 
 package com.memksim.todolist.fragments
 
+import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,8 +21,6 @@ import com.memksim.todolist.contracts.RemindersListFragmentNavigation
 import com.memksim.todolist.databinding.FragmentRemindersListBinding
 import com.memksim.todolist.viewmodels.DaysListViewModel
 import com.memksim.todolist.viewmodels.RemindersListViewModel
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 
 class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), RemindersListFragmentNavigation {
 
@@ -57,7 +56,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
         binding.daysRecyclerView.layoutManager = horizontalLayoutManager
         binding.daysRecyclerView.adapter = daysAdapter
 
-        val callback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
+        val callback: ItemTouchHelper.SimpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT){
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -67,9 +66,86 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                //remindersListViewModel.deleteReminder(viewHolder.adapterPosition)
-                
-                viewHolder.itemView.visibility = View.GONE
+                when(direction){
+                    ItemTouchHelper.LEFT ->{
+                        remindersListViewModel.deleteReminder(viewHolder.adapterPosition)
+                        Toast.makeText(requireContext(), R.string.deleted, Toast.LENGTH_SHORT).show()
+                    }
+                    ItemTouchHelper.RIGHT ->{
+                        Toast.makeText(requireContext(), "open editor", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                var swipeBackground = requireContext().resources.getDrawable(R.drawable.swipe_delete_reminder_background, null)
+                    //ColorDrawable(Color.parseColor("#FF0000"))
+                val itemView = viewHolder.itemView
+                var icon = requireContext().resources.getDrawable(R.drawable.ic_delete, null)
+                val iconMargin = (itemView.height - icon.intrinsicHeight) / 2
+                if (dX < 0){
+                    swipeBackground = requireContext()
+                        .resources
+                        .getDrawable(R.drawable.swipe_delete_reminder_background, null)
+                    swipeBackground.setBounds(
+                        itemView.right + dX.toInt(),
+                        itemView.top,
+                        itemView.right,
+                        itemView.bottom)
+
+                    icon = requireContext()
+                        .resources
+                        .getDrawable(R.drawable.ic_delete, null)
+                    icon.setBounds(
+                        itemView.right - iconMargin - icon.intrinsicWidth,
+                        itemView.top + iconMargin,
+                        itemView.right - iconMargin,
+                        itemView.bottom - iconMargin
+                    )
+                }else{
+                    swipeBackground = requireContext()
+                        .resources
+                        .getDrawable(R.drawable.swipe_edit_reminder_background, null)
+                    swipeBackground.setBounds(
+                        itemView.left,
+                        itemView.top,
+                        dX.toInt(),
+                        itemView.bottom)
+
+                    icon = requireContext()
+                        .resources
+                        .getDrawable(R.drawable.ic_edit, null)
+                    icon.setBounds(
+                        itemView.left + iconMargin,
+                        itemView.top + iconMargin,
+                        itemView.left + iconMargin + icon.intrinsicWidth,
+                        itemView.bottom - iconMargin)
+                }
+
+                swipeBackground.draw(c)
+                icon.draw(c)
+
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+
+
             }
 
 
