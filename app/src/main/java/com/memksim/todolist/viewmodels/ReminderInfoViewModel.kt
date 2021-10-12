@@ -1,23 +1,37 @@
 package com.memksim.todolist.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import com.memksim.todolist.contracts.AddReminderViewModelContract
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.memksim.todolist.contracts.ReminderInfoContract
 import com.memksim.todolist.contracts.WorkWithCategories
 import com.memksim.todolist.model.Repository
 import com.memksim.todolist.objects.Category
 import com.memksim.todolist.objects.Reminder
 
-class AddReminderViewModel(
+class ReminderInfoViewModel(
     application: Application
-): AndroidViewModel(application), AddReminderViewModelContract, WorkWithCategories {
+): AndroidViewModel(application), ReminderInfoContract, WorkWithCategories {
 
     private val repository = Repository(application)
 
-    override fun createReminder(reminder: Reminder) {
-        repository.addReminder(reminder)
-        //Log.d("test", "AddReminderViewModel createReminder(reminder: Reminder)")
+    private val _liveData: MutableLiveData<Reminder> by lazy {
+        MutableLiveData<Reminder>()
+    }
+    var liveData: LiveData<Reminder> = _liveData
+
+
+    private fun loadReminder(id: Int) {
+        _liveData.value = repository.getReminderById(id)
+    }
+
+    override fun updateData(reminderId: Int) {
+        loadReminder(reminderId)
+    }
+
+    override fun updateReminder(reminder: Reminder) {
+        repository.updateReminder(reminder)
     }
 
     override fun getCategoriesList():List<Category> {
@@ -34,4 +48,6 @@ class AddReminderViewModel(
 
         return names
     }
+
+
 }

@@ -15,14 +15,18 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.memksim.todolist.R
+import com.memksim.todolist.adapters.ActionListener
 import com.memksim.todolist.adapters.DaysAdapter
 import com.memksim.todolist.adapters.RemindersAdapter
 import com.memksim.todolist.contracts.RemindersListFragmentNavigation
+import com.memksim.todolist.contracts.RemindersListViewModelContract
 import com.memksim.todolist.databinding.FragmentRemindersListBinding
+import com.memksim.todolist.objects.Reminder
 import com.memksim.todolist.viewmodels.DaysListViewModel
 import com.memksim.todolist.viewmodels.RemindersListViewModel
 
-class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), RemindersListFragmentNavigation {
+class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), RemindersListFragmentNavigation,
+    ActionListener {
 
     private var _binding: FragmentRemindersListBinding? = null
     private val binding get() = _binding!!
@@ -72,7 +76,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
                         Toast.makeText(requireContext(), R.string.deleted, Toast.LENGTH_SHORT).show()
                     }
                     ItemTouchHelper.RIGHT ->{
-                        Toast.makeText(requireContext(), "open editor", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), R.string.completed, Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -115,7 +119,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
                 }else{
                     swipeBackground = requireContext()
                         .resources
-                        .getDrawable(R.drawable.swipe_edit_reminder_background, null)
+                        .getDrawable(R.drawable.swipe_done_reminder_background, null)
                     swipeBackground.setBounds(
                         itemView.left,
                         itemView.top,
@@ -124,7 +128,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
 
                     icon = requireContext()
                         .resources
-                        .getDrawable(R.drawable.ic_edit, null)
+                        .getDrawable(R.drawable.ic_done, null)
                     icon.setBounds(
                         itemView.left + iconMargin,
                         itemView.top + iconMargin,
@@ -151,7 +155,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
 
 
         }
-        remindersAdapter = RemindersAdapter()
+        remindersAdapter = RemindersAdapter(this)
         ItemTouchHelper(callback).attachToRecyclerView(binding.remindersRecyclerView)
         remindersAdapter.categories = remindersListViewModel.getCategories()
         remindersListViewModel.remindersLiveData.observe(viewLifecycleOwner, Observer {
@@ -221,6 +225,11 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
         navController.navigate(R.id.action_remindersListFragment_to_addReminderFragment)
     }
 
+    override fun openReminderInfoFragment(id: Int) {
+        val action = RemindersListFragmentDirections.actionRemindersListFragmentToReminderInfoFragment(id = id)
+        navController.navigate(action)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -242,5 +251,9 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
             "Dec" -> getString(R.string.Dec)
             else -> ""
         }
+    }
+
+    override fun onClickedReminder(id: Int) {
+        openReminderInfoFragment(id = id)
     }
 }

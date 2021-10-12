@@ -1,11 +1,14 @@
 package com.memksim.todolist.objects
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.memksim.todolist.R
+import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 @Entity(tableName = "reminders")
 open class Reminder(
@@ -17,7 +20,7 @@ open class Reminder(
     @ColumnInfo(name = "_hour")val hour: Int,
     @ColumnInfo(name = "_minute")val minute: Int,
     @ColumnInfo(name = "_repeat")val repeatResId: Int
-){
+) {
 
     fun getColorResId(categories: List<Category>): Int{
         var color = categories[0].colorResId

@@ -7,8 +7,4 @@ interface AddReminderViewModelContract {
 
     fun createReminder(reminder: Reminder)
 
-    fun getCategoriesList(): List<Category>
-
-    fun getCategoriesNames(): List<String>
-
 }

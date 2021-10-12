@@ -20,6 +20,7 @@
     <string name="selectDate">Select date</string>
     <string name="selectTime">Select time</string>
     <string name="deleted">Deleted</string>
+    <string name="completed">Completed</string>
 
     <string name="defaultCategory">Default</string>
     <string name="workCategory">Work</string>

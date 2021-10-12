@@ -3,6 +3,7 @@ package com.memksim.todolist.adapters
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.memksim.todolist.R
@@ -12,7 +13,15 @@ import com.memksim.todolist.objects.Reminder
 import com.memksim.todolist.objects.Repeat
 import com.memksim.todolist.objects.Repeat.*
 
-class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHolder>() {
+interface ActionListener{
+
+    fun onClickedReminder(id: Int)
+
+}
+
+class RemindersAdapter(
+    private val listener: ActionListener
+): RecyclerView.Adapter<RemindersAdapter.RemindersViewHolder>() {
 
     private lateinit var context: Context
 
@@ -20,9 +29,19 @@ class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHol
     var categories: List<Category> = emptyList()
 
     private var whenRepeat: List<String> = emptyList()
+    private var id = 0
 
-    class RemindersViewHolder(val binding: ItemReminderBinding):
-        RecyclerView.ViewHolder(binding.root)
+    class RemindersViewHolder(val binding: ItemReminderBinding, private val listener: ActionListener):
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener{
+
+        init {
+            binding.root.setOnClickListener(this)
+        }
+
+        override fun onClick(view: View) {
+            listener.onClickedReminder(adapterPosition)
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RemindersViewHolder {
         context = parent.context
@@ -43,12 +62,14 @@ class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHol
             context.getString(R.string.everyYear)
         )
 
-        return RemindersViewHolder(binding)
+        val viewHolder = RemindersViewHolder(binding, listener)
+
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: RemindersViewHolder, position: Int) {
         val reminder = reminders[position]
-
+        id = position
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             holder.binding.categoryColor.backgroundTintList = context.resources.getColorStateList(reminder.getColorResId(categories), null)
@@ -79,5 +100,9 @@ class RemindersAdapter(): RecyclerView.Adapter<RemindersAdapter.RemindersViewHol
             EVERYYEAR -> whenRepeat[10]
             else -> whenRepeat[0]
         }
+    }
+
+    private fun getReminder(reminderId: Int): Reminder{
+        return reminders[reminderId]
     }
 }

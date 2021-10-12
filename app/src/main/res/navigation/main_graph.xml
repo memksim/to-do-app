@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
@@ -8,10 +9,14 @@
     <fragment
         android:id="@+id/remindersListFragment"
         android:name="com.memksim.todolist.fragments.RemindersListFragment"
-        android:label="RemindersListFragment">
+        android:label="RemindersListFragment"
+        tools:layout="@layout/fragment_reminders_list">
         <action
             android:id="@+id/action_remindersListFragment_to_addReminderFragment"
             app:destination="@id/addReminderFragment" />
+        <action
+            android:id="@+id/action_remindersListFragment_to_reminderInfoFragment"
+            app:destination="@id/reminderInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/addReminderFragment"
@@ -21,5 +26,17 @@
         <action
             android:id="@+id/action_addReminderFragment_to_remindersListFragment"
             app:destination="@id/remindersListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reminderInfoFragment"
+        android:name="com.memksim.todolist.fragments.ReminderInfoFragment"
+        android:label="ReminderInfoFragment"
+        tools:layout="@layout/fragment_reminder_info">
+        <action
+            android:id="@+id/action_reminderInfoFragment_to_remindersListFragment"
+            app:destination="@id/remindersListFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 </navigation>

@@ -17,7 +17,6 @@ import com.google.android.material.timepicker.TimeFormat
 import com.memksim.todolist.R
 import com.memksim.todolist.databinding.FragmentAddReminderBinding
 import com.memksim.todolist.objects.*
-import com.memksim.todolist.objects.Repeat.*
 import com.memksim.todolist.viewmodels.AddReminderViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,7 +35,7 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
     private var min = 0
 
     private var categories: List<Category> = emptyList()
-    private var names: List<String> = emptyList()
+    private var categoriesTitles: List<String> = emptyList()
 
     private var whenRepeat: List<String> = emptyList()
 
@@ -65,6 +64,11 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
             saveReminder()
             navController.navigate(R.id.action_addReminderFragment_to_remindersListFragment)
         }
+
+        binding.close.setOnClickListener {
+            navController.navigate(R.id.action_addReminderFragment_to_remindersListFragment)
+        }
+
         getCurrentDate()
         getCurrentTime()
 
@@ -77,9 +81,9 @@ class AddReminderFragment: Fragment(R.layout.fragment_add_reminder) {
         }
 
         categories = viewModel.getCategoriesList()
-        names = viewModel.getCategoriesNames()
+        categoriesTitles = viewModel.getCategoriesNames()
 
-        val adapterCategory = ArrayAdapter(requireContext(), R.layout.item_category_dropdown, names)
+        val adapterCategory = ArrayAdapter(requireContext(), R.layout.item_category_dropdown, categoriesTitles)
         binding.autoCompleteCategory.setAdapter(adapterCategory)
 
         val adapterRepeat = ArrayAdapter(requireContext(), R.layout.item_category_dropdown, whenRepeat)

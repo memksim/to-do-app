@@ -28,7 +28,7 @@ class Repository(private val context: Context): RepositoryContract {
     }
 
     override fun getReminderById(id: Int): Reminder {
-        return reminderDao.getReminderById(id)
+        return getReminders()[id]
     }
 
     override fun getCategories(): List<Category> {
