@@ -20,4 +20,6 @@ interface RepositoryContract {
 
     fun deleteReminder(reminder: Reminder)
 
+    fun deleteCategory(category: Category)
+
 }

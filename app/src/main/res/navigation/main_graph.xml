@@ -22,7 +22,7 @@
         android:id="@+id/addReminderFragment"
         android:name="com.memksim.todolist.fragments.AddReminderFragment"
         android:label="AddReminderFragment"
-        tools:layout="@layout/fragment_add_reminder">
+        tools:layout="@layout/fragment_reminder">
         <action
             android:id="@+id/action_addReminderFragment_to_remindersListFragment"
             app:destination="@id/remindersListFragment" />
@@ -31,7 +31,7 @@
         android:id="@+id/reminderInfoFragment"
         android:name="com.memksim.todolist.fragments.ReminderInfoFragment"
         android:label="ReminderInfoFragment"
-        tools:layout="@layout/fragment_reminder_info">
+        tools:layout="@layout/fragment_reminder">
         <action
             android:id="@+id/action_reminderInfoFragment_to_remindersListFragment"
             app:destination="@id/remindersListFragment" />

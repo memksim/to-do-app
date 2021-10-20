@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">To Do List</string>
+    <string name="reminder">Reminder</string>
     <string name="category">Category</string>
+    <string name="title">Title</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="note">Note</string>
@@ -21,6 +23,9 @@
     <string name="selectTime">Select time</string>
     <string name="deleted">Deleted</string>
     <string name="completed">Completed</string>
+    <string name="dateTime">Date &amp; Time</string>
+    <string name="priorityLevel">Priority level</string>
+    <string name="updated">Updated</string>
 
     <string name="defaultCategory">Default</string>
     <string name="workCategory">Work</string>
@@ -28,6 +33,7 @@
     <string name="healthCategory">Health</string>
 
     <!--Repeat-->
+    <string name="custom">Custom</string>
     <string name="never">Never</string>
     <string name="everyday">Everyday</string>
     <string name="everyTwoDays">Every 2 days</string>
@@ -63,5 +69,12 @@
     <string name="Oct">October</string>
     <string name="Nov">November</string>
     <string name="Dec">December</string>
+
+    <!--Priority levels-->
+    <string name="defaultLevel">Default level</string>
+    <string name="level1">Level 1</string>
+    <string name="level2">level 2</string>
+    <string name="level3">level 3</string>
+
 
 </resources>

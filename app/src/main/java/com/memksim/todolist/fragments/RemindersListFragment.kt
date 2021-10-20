@@ -2,6 +2,7 @@
 package com.memksim.todolist.fragments
 
 import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -39,7 +40,6 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
     private lateinit var daysAdapter: DaysAdapter
     private lateinit var remindersAdapter: RemindersAdapter
 
-    private var clicked = false
     private var daysListHidden = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,8 +92,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
                 actionState: Int,
                 isCurrentlyActive: Boolean
             ) {
-                var swipeBackground = requireContext().resources.getDrawable(R.drawable.swipe_delete_reminder_background, null)
-                    //ColorDrawable(Color.parseColor("#FF0000"))
+                var swipeBackground: Drawable
                 val itemView = viewHolder.itemView
                 var icon = requireContext().resources.getDrawable(R.drawable.ic_delete, null)
                 val iconMargin = (itemView.height - icon.intrinsicHeight) / 2
@@ -152,8 +151,6 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
 
             }
 
-
-
         }
         remindersAdapter = RemindersAdapter(this)
         ItemTouchHelper(callback).attachToRecyclerView(binding.remindersRecyclerView)
@@ -166,18 +163,14 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
         binding.remindersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.remindersRecyclerView.adapter = remindersAdapter
 
-
-        binding.moreOptions.setOnClickListener {
-            moreOptionsButtonClicked(clicked)
-        }
-
         binding.newReminder.setOnClickListener {
             openAddReminderFragment()
         }
 
-        binding.showDaysList.setOnClickListener {
+        binding.arrow.setOnClickListener {
             setDaysListVisible(daysListHidden)
         }
+
         binding.month.setOnClickListener {
             setDaysListVisible(daysListHidden)
         }
@@ -190,29 +183,14 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
     private fun setDaysListVisible(isHidden: Boolean){
         if(isHidden){
             binding.daysRecyclerView.visibility = View.VISIBLE
-            binding.showDaysList.setImageResource(R.drawable.ic_arrow_up)
+            binding.arrow.setImageResource(R.drawable.ic_arrow_up)
             daysListHidden = false
         }else{
             binding.daysRecyclerView.visibility = View.GONE
-            binding.showDaysList.setImageResource(R.drawable.ic_arrow_down)
+            binding.arrow.setImageResource(R.drawable.ic_arrow_down)
             daysListHidden = true
         }
 
-    }
-
-    private fun moreOptionsButtonClicked(clicked: Boolean){
-        setVisibility(clicked)
-        this.clicked = !clicked
-    }
-
-    private fun setVisibility(clicked: Boolean) {
-        if (!clicked){
-            binding.newReminder.visibility = View.VISIBLE
-            binding.clearAll.visibility = View.VISIBLE
-        }else{
-            binding.newReminder.visibility = View.INVISIBLE
-            binding.clearAll.visibility = View.INVISIBLE
-        }
     }
 
     override fun onStart() {

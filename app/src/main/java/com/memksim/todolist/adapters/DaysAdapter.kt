@@ -34,27 +34,23 @@ class DaysAdapter: RecyclerView.Adapter<DaysAdapter.DaysViewHolder>() {
 
     override fun onBindViewHolder(holder: DaysViewHolder, position: Int) {
         if (days[position].isCurrent){
-            holder.binding.itemDayLayout.background = AppCompatResources.getDrawable(context, R.drawable.item_current_day_background)
+            holder.binding.currentDayCircle.background = AppCompatResources.getDrawable(context, R.drawable.item_current_day_background)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                holder.binding.dayOfWeek.setTextColor(context.resources.getColor(R.color.white, null))
                 holder.binding.dayOfMonth.setTextColor(context.resources.getColor(R.color.white, null))
             }else{
-                holder.binding.dayOfWeek.setTextColor(context.resources.getColor(R.color.white))
                 holder.binding.dayOfMonth.setTextColor(context.resources.getColor(R.color.white))
             }
         }else{
-            holder.binding.itemDayLayout.background = AppCompatResources.getDrawable(context, R.drawable.item_day_background)
+            holder.binding.currentDayCircle.background = AppCompatResources.getDrawable(context, R.drawable.item_day_background)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                holder.binding.dayOfWeek.setTextColor(context.resources.getColor(R.color.black, null))
                 holder.binding.dayOfMonth.setTextColor(context.resources.getColor(R.color.black, null))
             }else{
-                holder.binding.dayOfWeek.setTextColor(context.resources.getColor(R.color.black))
                 holder.binding.dayOfMonth.setTextColor(context.resources.getColor(R.color.black))
             }
         }
 
-        holder.binding.dayOfMonth.text = days[position].todayDate.toString()
         holder.binding.dayOfWeek.text = days[position].dayOfWeek
+        holder.binding.dayOfMonth.text = days[position].todayDate.toString()
 
     }
 

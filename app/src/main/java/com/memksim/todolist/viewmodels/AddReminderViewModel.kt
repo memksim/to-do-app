@@ -1,7 +1,6 @@
 package com.memksim.todolist.viewmodels
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.memksim.todolist.contracts.AddReminderViewModelContract
 import com.memksim.todolist.contracts.WorkWithCategories

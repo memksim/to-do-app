@@ -35,4 +35,14 @@
     <color name="orange">#e09d30</color>
     <color name="purple">#bb7db2</color>
     <color name="brown">#8d7361</color>
+
+
+    <!---->
+    <color name="dark_mode_main">#120d14</color>
+    <color name="dark_mode_secondary">#2e2e39</color>
+
+    <color name="light_mode_main">#f0eeef</color>
+    <color name="light_mode_secondary">#cfcdcb</color>
+
+    <color name="test_accent">#b2b3b8</color>
 </resources>

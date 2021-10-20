@@ -10,17 +10,28 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+@Parcelize
 @Entity(tableName = "reminders")
 open class Reminder(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") val id: Int,
-    @ColumnInfo(name = "_title")val title: String,
-    @ColumnInfo(name = "_note")val note: String,
-    @ColumnInfo(name = "_category")val categoryTitle: String,
-    @ColumnInfo(name = "_date")val dateInMillis: Long,
-    @ColumnInfo(name = "_hour")val hour: Int,
-    @ColumnInfo(name = "_minute")val minute: Int,
-    @ColumnInfo(name = "_repeat")val repeatResId: Int
-) {
+    @ColumnInfo(name = "_title")var title: String,
+    @ColumnInfo(name = "_note")var note: String,
+    @ColumnInfo(name = "_date")var dateInMillis: Long,
+    @ColumnInfo(name = "_hour")var hour: Int,
+    @ColumnInfo(name = "_minute")var minute: Int,
+    @ColumnInfo(name = "_repeat")var repeatResId: Int,
+    @ColumnInfo(name = "_category")var categoryTitle: String,
+    @ColumnInfo(name = "_priority") var priorityLevel: Int
+): Parcelable {
+
+    fun getPriorityResId(): Int{
+        return when(priorityLevel){
+            1 -> R.string.level1
+            2 -> R.string.level2
+            3 -> R.string.level3
+            else -> R.string.defaultLevel
+        }
+    }
 
     fun getColorResId(categories: List<Category>): Int{
         var color = categories[0].colorResId
@@ -42,7 +53,7 @@ open class Reminder(
         return dateFormat.format(dateInMillis)
     }
 
-    fun getRepeat(): Repeat {
+    fun getRepeatAsRepeat(): Repeat {
         return when(repeatResId){
             R.string.everyday -> Repeat.EVERYDAY
             R.string.everyTwoDays -> Repeat.EVERYTWODAYS

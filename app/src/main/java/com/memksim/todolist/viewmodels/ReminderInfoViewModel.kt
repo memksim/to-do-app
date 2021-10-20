@@ -26,6 +26,11 @@ class ReminderInfoViewModel(
         _liveData.value = repository.getReminderById(id)
     }
 
+    override fun getSavedReminder(reminder: Reminder) {
+        _liveData.value = reminder
+    }
+
+
     override fun updateData(reminderId: Int) {
         loadReminder(reminderId)
     }

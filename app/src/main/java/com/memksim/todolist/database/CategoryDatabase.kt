@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.memksim.todolist.R
 import com.memksim.todolist.dao.CategoryDao
 import com.memksim.todolist.objects.Category
 

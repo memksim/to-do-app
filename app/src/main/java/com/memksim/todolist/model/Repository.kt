@@ -34,10 +34,10 @@ class Repository(private val context: Context): RepositoryContract {
     override fun getCategories(): List<Category> {
          if (categoryDao.getCategoriesList().isEmpty()){
             //если список категорий пуст, то заполняем базовыми категориями
-            categoryDao.saveNewCategory(Category(context.resources.getString(R.string.defaultCategory), R.color.light_blue))
-            categoryDao.saveNewCategory(Category(context.resources.getString(R.string.workCategory), R.color.blue))
-            categoryDao.saveNewCategory(Category(context.resources.getString(R.string.healthCategory), R.color.salad_green))
-            categoryDao.saveNewCategory(Category(context.resources.getString(R.string.homeCategory), R.color.brown))
+            categoryDao.saveNewCategory(Category(context.resources.getString(R.string.defaultCategory), R.color.grey, R.drawable.ic_category_inbox))
+            categoryDao.saveNewCategory(Category(context.resources.getString(R.string.workCategory), R.color.blue, R.drawable.ic_category_work))
+            categoryDao.saveNewCategory(Category(context.resources.getString(R.string.healthCategory), R.color.salad_green, R.drawable.ic_category_favorite))
+            categoryDao.saveNewCategory(Category(context.resources.getString(R.string.homeCategory), R.color.brown, R.drawable.ic_category_home))
         }
         return categoryDao.getCategoriesList()
     }
@@ -53,6 +53,10 @@ class Repository(private val context: Context): RepositoryContract {
 
     override fun deleteReminder(reminder: Reminder) {
         reminderDao.deleteReminder(reminder)
+    }
+
+    override fun deleteCategory(category: Category) {
+        categoryDao.deleteCategory(category = category)
     }
 
 

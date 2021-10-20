@@ -15,4 +15,5 @@ interface RemindersListViewModelContract {
 
     fun deleteReminder(id: Int)
 
+
 }

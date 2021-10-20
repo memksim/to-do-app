@@ -71,14 +71,57 @@ class RemindersAdapter(
         val reminder = reminders[position]
         id = position
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            holder.binding.categoryColor.backgroundTintList = context.resources.getColorStateList(reminder.getColorResId(categories), null)
-        }else{
-            holder.binding.categoryColor.backgroundTintList = context.resources.getColorStateList(reminder.getColorResId(categories))
-        }
         holder.binding.title.text = reminder.title
-        holder.binding.dateTime.text = reminder.getFormattedDate() + ", " + reminder.getFormattedTime()
-        holder.binding.whenRepeat.text = getRepeat(reminder.getRepeat())
+
+        holder.binding.note.text = reminder.note
+        if (reminder.note == ""){
+            holder.binding.note.visibility = View.GONE
+        }else{
+            holder.binding.note.visibility = View.VISIBLE
+        }
+
+        when(reminder.priorityLevel){
+            1 -> {
+                holder.binding.priority3.visibility = View.VISIBLE
+            }
+            2 -> {
+                holder.binding.priority3.visibility = View.VISIBLE
+                holder.binding.priority2.visibility = View.VISIBLE
+            }
+            3 -> {
+                holder.binding.priority3.visibility = View.VISIBLE
+                holder.binding.priority2.visibility = View.VISIBLE
+                holder.binding.priority1.visibility = View.VISIBLE
+            }
+            else -> {
+                holder.binding.priority3.visibility = View.GONE
+                holder.binding.priority2.visibility = View.GONE
+                holder.binding.priority1.visibility = View.GONE
+            }
+        }
+
+        holder.binding.whenRemind.text = reminder.getFormattedDate() + ", " + reminder.getFormattedTime()
+
+        if (getRepeat(reminder.getRepeatAsRepeat()) != whenRepeat[0]){
+            holder.binding.repeatIcon.visibility = View.VISIBLE
+        }else{
+            holder.binding.repeatIcon.visibility = View.INVISIBLE
+        }
+
+        val category: Category
+        for (c in categories){
+            if (reminder.categoryTitle == c.name){
+                category = c
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
+                    holder.binding.categoryColor.backgroundTintList = context.resources.getColorStateList(category.colorResId, null)
+                }else{
+                    holder.binding.categoryColor.backgroundTintList = context.resources.getColorStateList(category.colorResId)
+                }
+                break
+            }
+        }
+
+
 
     }
 
