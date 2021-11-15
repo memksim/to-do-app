@@ -1,84 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/light_mode_secondary">
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/curtain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="6dp"
+        android:layout_height="match_parent"
+        android:background="@color/light_mode_secondary">
 
-        android:background="@drawable/curtain_background"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+            app:liftOnScroll="true"
 
-        android:paddingBottom="16dp">
-
-        <ImageView
-            android:id="@+id/menu"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-
-            android:src="@drawable/ic_menu"
+            android:translationZ="6dp"
 
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="24dp"/>
-
-        <TextView
-            android:id="@+id/month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="@font/comfortaa_bold"
-            android:text="@string/Nov"
-            android:textColor="@color/dark_mode_main"
-            android:textSize="28sp"
-
-            app:layout_constraintBottom_toBottomOf="@+id/menu"
-            app:layout_constraintEnd_toStartOf="@id/filter"
-            app:layout_constraintStart_toEndOf="@id/menu"
-            app:layout_constraintTop_toTopOf="@id/menu" />
-
-        <ImageView
-            android:id="@+id/arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:src="@drawable/ic_arrow_down"
-
-
-            app:layout_constraintBottom_toBottomOf="@id/month"
-            app:layout_constraintStart_toEndOf="@id/month"
-            app:layout_constraintTop_toTopOf="@+id/month"
-            android:layout_marginTop="8dp"/>
-
-
-        <ImageView
-            android:id="@+id/filter"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-
-            android:src="@drawable/ic_filter_list"
-
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="24dp"/>
+            android:paddingBottom="8dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+
+                app:title="@string/Nov"
+                app:navigationIcon="@drawable/ic_menu"
+                app:menu="@menu/toolbar_menu_reminders_list"
+                android:elevation="0dp"
+
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/daysRecyclerView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:elevation="6dp"
+
+            android:background="@drawable/curtain_background"
 
             tools:listitem="@layout/item_day"
             android:orientation="horizontal"
@@ -86,50 +57,60 @@
 
             app:layout_constraintStart_toStartOf="parent"
             android:paddingStart="8dp"
-            app:layout_constraintTop_toBottomOf="@id/month"
-            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/appBar"
             app:layout_constraintEnd_toEndOf="parent"
             android:paddingEnd="2dp"
+            android:paddingBottom="8dp"
 
             android:visibility="gone"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/remindersRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="6"
+            tools:listitem="@layout/item_reminder"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@id/daysRecyclerView" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/newReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:backgroundTint="@color/dark_mode_main"
+            app:tint="@color/white"
+            app:srcCompat="@drawable/ic_baseline_add_24"
+            app:borderWidth="0dp"
+            android:contentDescription="@string/more"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="36dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="36dp"
+            />
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/remindersRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="6"
-        tools:listitem="@layout/item_reminder"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="8dp"
-        app:layout_constraintTop_toBottomOf="@id/curtain" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/newReminder"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
 
-        android:backgroundTint="@color/dark_mode_main"
-        app:tint="@color/white"
-        app:srcCompat="@drawable/ic_baseline_add_24"
-        app:borderWidth="0dp"
-        android:contentDescription="@string/more"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_drawer_menu"/>
 
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="36dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="36dp"
-        />
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

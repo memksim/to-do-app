@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/categoriesGroup"
+        android:checkableBehavior="single"
+        android:orderInCategory="1">
+        <item
+            android:id="@+id/categoriesSettings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/categoriesSettings"/>
+
+        <!--<item
+            android:id="@+id/defaultCategory"
+            android:icon="@drawable/ic_category_inbox"
+            android:title="@string/defaultCategory"/>
+        <item
+            android:id="@+id/work"
+            android:icon="@drawable/ic_category_work"
+            android:title="@string/workCategory"/>
+        <item
+            android:id="@+id/health"
+            android:icon="@drawable/ic_category_favorite"
+            android:title="@string/healthCategory" />
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/ic_category_home"
+            android:title="@string/homeCategory" />-->
+    </group>
+
+    <group
+        android:id="@+id/bottomGroup"
+        android:checkableBehavior="single"
+        android:orderInCategory="2">
+        <item
+            android:id="@+id/about"
+            android:icon="@drawable/ic_help_outline"
+            android:title="@string/about"/>
+        <item
+            android:id="@+id/shareApp"
+            android:icon="@drawable/ic_share"
+            android:title="@string/shareApp"/>
+        <item
+            android:id="@+id/rateUs"
+            android:icon="@drawable/ic_star_rate"
+            android:title="@string/rateUs" />
+    </group>
+
+</menu>

@@ -1,12 +1,20 @@
 
 package com.memksim.todolist.fragments
 
+import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.MenuRes
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,11 +28,11 @@ import com.memksim.todolist.adapters.ActionListener
 import com.memksim.todolist.adapters.DaysAdapter
 import com.memksim.todolist.adapters.RemindersAdapter
 import com.memksim.todolist.contracts.RemindersListFragmentNavigation
-import com.memksim.todolist.contracts.RemindersListViewModelContract
 import com.memksim.todolist.databinding.FragmentRemindersListBinding
-import com.memksim.todolist.objects.Reminder
+import com.memksim.todolist.objects.Category
 import com.memksim.todolist.viewmodels.DaysListViewModel
 import com.memksim.todolist.viewmodels.RemindersListViewModel
+
 
 class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), RemindersListFragmentNavigation,
     ActionListener {
@@ -40,14 +48,19 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
     private lateinit var daysAdapter: DaysAdapter
     private lateinit var remindersAdapter: RemindersAdapter
 
+    private var categories: List<Category> = emptyList()
+
     private var daysListHidden = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentRemindersListBinding.bind(view)
+        setHasOptionsMenu(true)
 
         daysListViewModel = ViewModelProvider(this)[DaysListViewModel::class.java]
         remindersListViewModel = ViewModelProvider(this)[RemindersListViewModel::class.java]
+
+        categories = remindersListViewModel.getCategories()
 
         val horizontalLayoutManager = LinearLayoutManager(requireContext())
         horizontalLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -55,7 +68,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
         daysListViewModel.days.observe(viewLifecycleOwner, Observer {
             daysAdapter.notifyDataSetChanged()
             daysAdapter.days = it
-            binding.month.text = setMonthStyle(it[0].month)
+            binding.toolBar.title = setMonthStyle(it[0].month)
         })
         binding.daysRecyclerView.layoutManager = horizontalLayoutManager
         binding.daysRecyclerView.adapter = daysAdapter
@@ -80,7 +93,6 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
                     }
                 }
 
-
             }
 
             override fun onChildDraw(
@@ -92,7 +104,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
                 actionState: Int,
                 isCurrentlyActive: Boolean
             ) {
-                var swipeBackground: Drawable
+                val swipeBackground: Drawable
                 val itemView = viewHolder.itemView
                 var icon = requireContext().resources.getDrawable(R.drawable.ic_delete, null)
                 val iconMargin = (itemView.height - icon.intrinsicHeight) / 2
@@ -152,6 +164,7 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
             }
 
         }
+
         remindersAdapter = RemindersAdapter(this)
         ItemTouchHelper(callback).attachToRecyclerView(binding.remindersRecyclerView)
         remindersAdapter.categories = remindersListViewModel.getCategories()
@@ -167,30 +180,71 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
             openAddReminderFragment()
         }
 
-        binding.arrow.setOnClickListener {
-            setDaysListVisible(daysListHidden)
-        }
-
-        binding.month.setOnClickListener {
-            setDaysListVisible(daysListHidden)
-        }
-
-
-
         navController = findNavController()
-    }
 
-    private fun setDaysListVisible(isHidden: Boolean){
-        if(isHidden){
-            binding.daysRecyclerView.visibility = View.VISIBLE
-            binding.arrow.setImageResource(R.drawable.ic_arrow_up)
-            daysListHidden = false
+        if(categories.size == 1){
+            binding.navView.menu.add(R.id.categoriesGroup, Menu.NONE, 1, R.string.newCategory).setIcon(R.drawable.ic_baseline_add_24)
         }else{
-            binding.daysRecyclerView.visibility = View.GONE
-            binding.arrow.setImageResource(R.drawable.ic_arrow_down)
-            daysListHidden = true
+            for(i in 1 until categories.size){
+                binding.navView.menu.add(R.id.categoriesGroup, i, 1, categories[i].name).setIcon(categories[i].iconResId)
+            }
         }
 
+
+
+        val drawerLayout = getView()?.findViewById<DrawerLayout>(R.id.drawerLayout)
+        binding.toolBar.setNavigationOnClickListener {
+            drawerLayout?.openDrawer(GravityCompat.START, true)
+        }
+
+
+        binding.toolBar.setOnMenuItemClickListener {
+            onOptionsItemSelected(it)
+        }
+
+        binding.toolBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.show -> {
+                    if(daysListHidden){
+                        binding.daysRecyclerView.visibility = View.VISIBLE
+                        //binding.toolBar.show.setImageResource(R.drawable.ic_arrow_up)
+                        menuItem.setIcon(R.drawable.ic_arrow_up)
+                        daysListHidden = false
+                    }else{
+                        binding.daysRecyclerView.visibility = View.GONE
+                        //binding.arrow.setImageResource(R.drawable.ic_arrow_down)
+                        menuItem.setIcon(R.drawable.ic_arrow_down)
+                        daysListHidden = true
+                    }
+                    true
+                }
+                R.id.nearest -> {
+                    //todo
+                    true
+                }
+                R.id.highPriority ->{
+                    //todo
+                    true
+                }
+                R.id.lowPriority -> {
+                    //todo
+                    true
+                }
+                R.id.alphabet -> {
+                    //todo
+                    true
+                }
+                R.id.newest -> {
+                    //todo
+                    true
+                }
+                R.id.oldest -> {
+                    //todo
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     override fun onStart() {
@@ -213,6 +267,8 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
         _binding = null
     }
 
+
+
     private fun setMonthStyle(month: String):String{
         return when(month){
             "Jan" -> getString(R.string.Jan)
@@ -234,4 +290,6 @@ class RemindersListFragment: Fragment(R.layout.fragment_reminders_list), Reminde
     override fun onClickedReminder(id: Int) {
         openReminderInfoFragment(id = id)
     }
+
+
 }

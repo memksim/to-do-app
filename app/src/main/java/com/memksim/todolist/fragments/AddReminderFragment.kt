@@ -6,6 +6,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.DateFormat.is24HourFormat
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.annotation.MenuRes
@@ -24,7 +26,6 @@ import com.memksim.todolist.R
 import com.memksim.todolist.databinding.FragmentReminderBinding
 import com.memksim.todolist.objects.*
 import com.memksim.todolist.viewmodels.AddReminderViewModel
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AddReminderFragment:
@@ -50,6 +51,8 @@ class AddReminderFragment:
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentReminderBinding.bind(view)
         navController = findNavController()
+
+        requireActivity().actionBar?.hide()
 
         viewModel = ViewModelProvider(this)[AddReminderViewModel::class.java]
 
@@ -89,13 +92,16 @@ class AddReminderFragment:
         getCurrentDate()
         getCurrentTime()
 
-        binding.save.setOnClickListener {
-            saveReminder()
+        binding.toolBar.setNavigationOnClickListener {
             navController.navigate(R.id.action_addReminderFragment_to_remindersListFragment)
         }
-
-        binding.back.setOnClickListener {
-            navController.navigate(R.id.action_addReminderFragment_to_remindersListFragment)
+        binding.toolBar.setOnMenuItemClickListener { menuItem ->
+            if (menuItem.itemId == R.id.save) {
+                saveReminder()
+                navController.navigate(R.id.action_addReminderFragment_to_remindersListFragment)
+                true
+            }
+            else false
         }
 
         binding.addTitle.addTextChangedListener(object: TextWatcher {
@@ -293,7 +299,7 @@ class AddReminderFragment:
         // Show the popup menu.
         popup.show()
     }
-
+    
     private fun getPriorityLevel(title: String): Int{
         return when(title){
             requireContext().resources.getString(R.string.level1) -> 1

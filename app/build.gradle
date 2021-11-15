@@ -78,6 +78,12 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger2_version"
     kapt "com.google.dagger:dagger-compiler:$dagger2_version"
 
+    //rx
+    def rxJava_version = "3.1.2"
+    implementation "io.reactivex.rxjava3:rxjava:$rxJava_version"
+    def rxAndroid_version = "3.0.0"
+    implementation "io.reactivex.rxjava3:rxandroid:$rxAndroid_version"
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

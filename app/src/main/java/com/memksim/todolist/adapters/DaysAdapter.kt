@@ -1,12 +1,8 @@
 package com.memksim.todolist.adapters
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
@@ -50,7 +46,7 @@ class DaysAdapter: RecyclerView.Adapter<DaysAdapter.DaysViewHolder>() {
         }
 
         holder.binding.dayOfWeek.text = days[position].dayOfWeek
-        holder.binding.dayOfMonth.text = days[position].todayDate.toString()
+        holder.binding.dayOfMonth.text = days[position].dateInMillis.toString()
 
     }
 

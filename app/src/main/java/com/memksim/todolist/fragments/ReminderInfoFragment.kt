@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import android.text.format.DateFormat
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.appcompat.content.res.AppCompatResources
@@ -28,7 +27,6 @@ import com.memksim.todolist.databinding.FragmentReminderBinding
 import com.memksim.todolist.objects.Category
 import com.memksim.todolist.objects.Reminder
 import com.memksim.todolist.viewmodels.ReminderInfoViewModel
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -59,15 +57,13 @@ class ReminderInfoFragment: Fragment(R.layout.fragment_reminder) {
         navController = findNavController()
         viewModel = ViewModelProvider(this)[ReminderInfoViewModel::class.java]
 
+        requireActivity().actionBar?.hide()
+
         updateUi(savedInstanceState)
 
         viewModel.liveData.observe(viewLifecycleOwner, Observer {
             reminder = it
         })
-
-        binding.save.setOnClickListener {
-            done()
-        }
 
         binding.addTitle.setText(reminder.title)
         binding.addTitle.addTextChangedListener(object: TextWatcher {
@@ -155,8 +151,15 @@ class ReminderInfoFragment: Fragment(R.layout.fragment_reminder) {
             showPopUpMenu(it, R.menu.priority_dropdown_menu)
         }
 
-        binding.back.setOnClickListener {
+        binding.toolBar.setNavigationOnClickListener {
             done()
+        }
+        binding.toolBar.setOnMenuItemClickListener { menuItem ->
+            if (menuItem.itemId == R.id.save) {
+                done()
+                true
+            }
+            else false
         }
 
     }

@@ -26,6 +26,24 @@
     <string name="dateTime">Date &amp; Time</string>
     <string name="priorityLevel">Priority level</string>
     <string name="updated">Updated</string>
+    <string name="newCategory">New category</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="showDaysList">Show days list</string>
+    <string name="shareApp">Share app</string>
+    <string name="rateUs">Rate us</string>
+    <string name="sortByNearest">Sort by nearest</string>
+    <string name="sortByPriority">Sort by priority</string>
+    <string name="highPriority">highest level</string>
+    <string name="lowPriority">lowest level</string>
+    <string name="sortByAlphabet">Sort by alphabet</string>
+    <string name="sortByTime">Sort by time</string>
+    <string name="newest">Newest</string>
+    <string name="oldest">Oldest</string>
+    <string name="logIn">Log in</string>
+    <string name="categoriesSettings">Manage categories</string>
 
     <string name="defaultCategory">Default</string>
     <string name="workCategory">Work</string>

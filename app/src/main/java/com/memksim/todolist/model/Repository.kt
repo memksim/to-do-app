@@ -20,7 +20,6 @@ class Repository(private val context: Context): RepositoryContract {
 
     override fun addReminder(reminder: Reminder) {
         reminderDao.saveNewReminder(reminder)
-        Log.d("test", "ReminderService addReminder(reminder: Reminder)")
     }
 
     override fun updateReminder(reminder: Reminder) {
